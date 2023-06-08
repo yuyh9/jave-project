@@ -5,18 +5,16 @@ import java.util.List;
 import model.product.Product;
 import model.product.ProductCategory;
 import model.supplier.Supplier;
-import model.supplier.SupplierManager;
 import model.warehouse.Warehouse;
 
 public class ProductData {
-  private TxtFileHandler txtFileHandler;
-  private List<Product> products;
 
+  private final TxtFileHandler txtFileHandler;
+  private final List<Product> products;
 
   public ProductData() {
     this.txtFileHandler = new TxtFileHandler();
     this.products = new ArrayList<>();
-
   }
 
   public List<Product> readProductData() {
@@ -32,17 +30,17 @@ public class ProductData {
       String supplierId = productData.length > 5 ? productData[5] : "";
       String warehouseId = productData.length > 6 ? productData[6] : "";
       boolean status = Boolean.parseBoolean(productData[7]);
+
       Supplier supplier = new Supplier(supplierId, "", "", "");
       Warehouse warehouse = new Warehouse(warehouseId, "", "");
-
-      Product product = new Product(productId, productName, price, quantity, category, supplier, warehouse);
+      Product product = new Product(productId, productName, price, quantity, category, supplier,
+          warehouse);
       product.setAvailable(status);
       products.add(product);
     }
 
     return products;
   }
-
 
   public void writeProductData(List<Product> products) {
     List<String> productData = new ArrayList<>();

@@ -1,12 +1,18 @@
 package controller;
-import view.*;
+
+
 import java.awt.event.ActionListener;
+import view.CustomerView;
+import view.HomePageView;
+import view.SupplierView;
+import view.WarehouseView;
 import view.ordersview.OrderView;
 import view.productsview.ProductView;
 import view.shipping.ShippingView;
 
 public class HomePageController {
-  private HomePageView homePageView;
+
+  private final HomePageView homePageView;
 
   public HomePageController(HomePageView homePageView) {
     this.homePageView = homePageView;
@@ -14,30 +20,13 @@ public class HomePageController {
   }
 
   private void attachManagementButtonListeners() {
-    ActionListener managementButtonListener = e -> {
-      if (e.getSource() == homePageView.getProductManagementButton()) {
-        navigateToProductManagementView();
-      } else if (e.getSource() == homePageView.getOrderManagementButton()) {
-        navigateToOrderManagementView();
-      } else if (e.getSource() == homePageView.getCustomerManagementButton()) {
-        navigateToCustomerManagementView();
-      }else if (e.getSource() == homePageView.getShippingManagementButton()) {
-        navigateToShippingManagementView();
-      }else if (e.getSource() == homePageView.getSupplierManagementButton()) {
-        navigateToSupplierManagementView();
-      }else if (e.getSource() == homePageView.getWarehouseManagementButton()) {
-        navigateToWarehouseManagementView();
-      }
-    };
-
-    homePageView.getProductManagementButton().addActionListener(managementButtonListener);
-    homePageView.getOrderManagementButton().addActionListener(managementButtonListener);
-    homePageView.getCustomerManagementButton().addActionListener(managementButtonListener);
-    homePageView.getShippingManagementButton().addActionListener(managementButtonListener);
-    homePageView.getSupplierManagementButton().addActionListener(managementButtonListener);
-    homePageView.getWarehouseManagementButton().addActionListener(managementButtonListener);
+    homePageView.getProductManagementButton().addActionListener(e -> navigateToProductManagementView());
+    homePageView.getOrderManagementButton().addActionListener(e -> navigateToOrderManagementView());
+    homePageView.getCustomerManagementButton().addActionListener(e -> navigateToCustomerManagementView());
+    homePageView.getShippingManagementButton().addActionListener(e -> navigateToShippingManagementView());
+    homePageView.getSupplierManagementButton().addActionListener(e -> navigateToSupplierManagementView());
+    homePageView.getWarehouseManagementButton().addActionListener(e -> navigateToWarehouseManagementView());
   }
-
 
   private void navigateToProductManagementView() {
     // Create the product management view and controller
@@ -93,12 +82,9 @@ public class HomePageController {
 
   private void navigateToWarehouseManagementView() {
     WarehouseView warehouseView = new WarehouseView();
-    WarehouseController warehouseController = new WarehouseController(homePageView,
-        warehouseView);
+    WarehouseController warehouseController = new WarehouseController(homePageView, warehouseView);
 
     homePageView.setVisible(false);
     warehouseView.setVisible(true);
   }
-
 }
-

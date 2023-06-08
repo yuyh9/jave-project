@@ -1,19 +1,43 @@
 package view.productsview;
-import java.awt.*;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.util.List;
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import model.product.*;
+import model.product.Product;
+import model.product.ProductCategory;
 
 public class ProductView extends JFrame {
-  private JPanel productPanel;
-  private JTable productTable;
-  private JButton addButton, updateButton, deleteButton, backButton, searchButton;
-  private DefaultTableModel  productTableModel;
-  private JTextField idField, priceField,nameField, quantityField,searchField;
-  private JComboBox<ProductCategory> categoryComboBox;
-  private JButton supplierSearchButton, warehouseSearchButton;
-  private JTextField supplierField, warehouseField;
+
+  private final JPanel productPanel;
+  private final JTable productTable;
+  private final JButton addButton;
+  private final JButton updateButton;
+  private final JButton deleteButton;
+  private final JButton backButton;
+  private final JButton searchButton;
+  private final DefaultTableModel productTableModel;
+  private final JTextField idField;
+  private final JTextField priceField;
+  private final JTextField nameField;
+  private final JTextField quantityField;
+  private final JTextField searchField;
+  private final JComboBox<ProductCategory> categoryComboBox;
+  private final JButton supplierSearchButton;
+  private final JButton warehouseSearchButton;
+  private final JTextField supplierField;
+  private final JTextField warehouseField;
 
 
   public ProductView() {
@@ -22,7 +46,6 @@ public class ProductView extends JFrame {
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(800, 700);
     setLocationRelativeTo(null);
-
 
     productPanel = new JPanel(new BorderLayout());
     String[] columnNames = {"Id", "Product Name", "Price", "Quantity", "Category", "Supplier ID",
@@ -59,8 +82,6 @@ public class ProductView extends JFrame {
     inputPanel.add(createFieldPanel("Supplier ID:", supplierField, supplierSearchButton));
     inputPanel.add(createFieldPanel("Warehouse ID:", warehouseField, warehouseSearchButton));
     inputPanel.add(createFieldPanel("Search by Name:", searchField));
-
-
 
     JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     addButton = new JButton("Add");
@@ -136,7 +157,6 @@ public class ProductView extends JFrame {
   }
 
   public String getName() {
-    // Retrieve the name from the text field
     return nameField.getText();
   }
 
@@ -162,7 +182,7 @@ public class ProductView extends JFrame {
 
   public JButton getAddButton() {
     return addButton;
-}
+  }
 
   public JButton getDeleteButton() {
     return deleteButton;
@@ -180,30 +200,21 @@ public class ProductView extends JFrame {
     return searchButton;
   }
 
-  public JButton getSupplierSearchButton(){
+  public JButton getSupplierSearchButton() {
     return supplierSearchButton;
   }
 
-  public JButton getWarehouseSearchButton(){
+  public JButton getWarehouseSearchButton() {
     return warehouseSearchButton;
-  }
-
-  public void updateSupplierField(String supplierId, String supplierName) {
-    supplierField.setText(supplierId);
   }
 
   public void updateWarehouseField(String warehouseLocation) {
     warehouseField.setText(warehouseLocation);
   }
 
-  public void setSupplierSelection(String supplierId, String supplierName) {
+  public void updateSupplierField(String supplierId) {
     supplierField.setText(supplierId);
   }
-
-  public void setWarehouseSelection(String warehouseLocation) {
-    warehouseField.setText(warehouseLocation);
-  }
-
 
   public void clearTextField() {
     idField.setText("");
@@ -212,16 +223,13 @@ public class ProductView extends JFrame {
     quantityField.setText("");
     supplierField.setText("");
     warehouseField.setText("");
+    searchField.setText("");
   }
+
   public JTable getProductTable() {
     return productTable;
   }
-  public void clearSearchKeyword() {
-    searchField.setText("");
-  }
-  public void updateSupplierField(String supplierId) {
-    supplierField.setText(supplierId);
-  }
+
 
   public ProductCategory getCategory() {
     return (ProductCategory) categoryComboBox.getSelectedItem();

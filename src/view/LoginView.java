@@ -1,14 +1,22 @@
 package view;
-import java.awt.*;
-import javax.swing.*;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 public class LoginView extends JFrame {
-  private JPanel loginPanel;
-  private JLabel usernameLabel;
-  private JTextField usernameField;
-  private JLabel passwordLabel;
-  private JPasswordField passwordField;
-  private JButton loginButton;
+
+  private final JPanel loginPanel;
+  private final JTextField usernameField;
+  private final JPasswordField passwordField;
+  private final JButton loginButton;
 
   public LoginView() {
     setTitle("Management system - Login");
@@ -16,55 +24,32 @@ public class LoginView extends JFrame {
     setSize(400, 300);
     setLocationRelativeTo(null);
 
-    loginPanel = new JPanel();
-    loginPanel.setLayout(new GridBagLayout());
-    GridBagConstraints gbc = new GridBagConstraints();
-    gbc.gridx = 0;
-    gbc.gridy = 0;
-    gbc.anchor = GridBagConstraints.LINE_START;
-    gbc.insets = new Insets(10, 10, 5, 5);
-
-    usernameLabel = new JLabel("Username:");
-    loginPanel.add(usernameLabel, gbc);
-
-    gbc.gridx = 1;
-    gbc.gridy = 0;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    gbc.weightx = 1.0;
-    gbc.insets = new Insets(10, 5, 5, 10);
-
+    loginPanel = new JPanel(new BorderLayout());
+    JPanel inputPanel = new JPanel(new BorderLayout());
     usernameField = new JTextField(20);
-    loginPanel.add(usernameField, gbc);
-
-    gbc.gridx = 0;
-    gbc.gridy = 1;
-    gbc.anchor = GridBagConstraints.LINE_START;
-    gbc.fill = GridBagConstraints.NONE;
-    gbc.weightx = 0.0;
-    gbc.insets = new Insets(5, 10, 10, 5);
-
-    passwordLabel = new JLabel("Password:");
-    loginPanel.add(passwordLabel, gbc);
-
-    gbc.gridx = 1;
-    gbc.gridy = 1;
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-    gbc.weightx = 1.0;
-    gbc.insets = new Insets(5, 5, 10, 10);
-
     passwordField = new JPasswordField(20);
-    loginPanel.add(passwordField, gbc);
+    JPanel leftInputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    leftInputPanel.add(new JLabel("Username:"));
+    leftInputPanel.add(usernameField);
+    JPanel rightInputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    rightInputPanel.add(new JLabel("Password:"));
+    rightInputPanel.add(passwordField);
+    inputPanel.add(leftInputPanel, BorderLayout.NORTH);
+    inputPanel.add(rightInputPanel, BorderLayout.CENTER);
 
-    gbc.gridx = 0;
-    gbc.gridy = 2;
-    gbc.gridwidth = 2;
-    gbc.fill = GridBagConstraints.NONE;
-    gbc.anchor = GridBagConstraints.CENTER;
-    gbc.weightx = 0.0;
-    gbc.insets = new Insets(10, 10, 10, 10);
+    //loginPanel.add(inputPanel, BorderLayout.CENTER);
 
+    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     loginButton = new JButton("Login");
-    loginPanel.add(loginButton, gbc);
+    buttonPanel.add(loginButton);
+
+    JPanel inputButtonPanel = new JPanel(new BorderLayout());
+    inputButtonPanel.add(inputPanel, BorderLayout.NORTH);
+    inputButtonPanel.add(buttonPanel, BorderLayout.CENTER);
+
+    loginPanel.add(inputButtonPanel, BorderLayout.CENTER);
+
+    loginPanel.setBorder(BorderFactory.createEmptyBorder(80, 20, 15, 15));
 
     add(loginPanel);
   }

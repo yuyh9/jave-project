@@ -1,6 +1,10 @@
 package data;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +22,6 @@ public class TxtFileHandler {
     }
     return data;
   }
-
 
   public void writeDataToFile(String filename, List<String> data) {
     try (BufferedWriter writer = new BufferedWriter(new FileWriter("file/" + filename))) {

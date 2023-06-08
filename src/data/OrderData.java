@@ -3,25 +3,28 @@ package data;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import model.customer.*;
-import model.order.*;
-import model.product.*;
+import model.customer.Customer;
+import model.customer.CustomerManager;
+import model.order.Order;
+import model.order.OrderItem;
+import model.order.OrderManager;
+import model.order.OrderStatus;
+import model.product.Product;
+import model.product.ProductManager;
 
 public class OrderData {
-  private TxtFileHandler txtFileHandler;
-  private List<Order> orderList;
-  private ProductManager productManager;
-  private CustomerManager customerManager;
+
+  private final TxtFileHandler txtFileHandler;
+  private final ProductManager productManager;
+  private final CustomerManager customerManager;
   private OrderManager orderManager;
 
   public OrderData() {
     this.txtFileHandler = new TxtFileHandler();
-    this.orderList = new ArrayList<>();
     this.productManager = new ProductManager();
     this.customerManager = new CustomerManager(this.orderManager);
     productManager.loadProducts();
     customerManager.loadCustomers();
-
   }
 
   public List<Order> readOrderData() {
@@ -71,7 +74,6 @@ public class OrderData {
         orderLine.append(orderItem.getQuantity()).append(",");
       }
 
-      // Remove the trailing comma
       orderLine.deleteCharAt(orderLine.length() - 1);
 
       orderData.add(orderLine.toString());

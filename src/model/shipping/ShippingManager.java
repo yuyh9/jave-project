@@ -3,15 +3,16 @@ package model.shipping;
 import data.ShippingData;
 import java.util.ArrayList;
 import java.util.List;
-import model.customer.*;
-import model.order.*;
+import model.customer.CustomerManager;
+import model.order.OrderManager;
 
 
 public class ShippingManager {
+
   private List<Shipping> shippings;
-  private ShippingData shippingData;
-  private OrderManager orderManager;
-  private CustomerManager customerManager;
+  private final ShippingData shippingData;
+  private final OrderManager orderManager;
+  private final CustomerManager customerManager;
 
   public ShippingManager(OrderManager orderManager, CustomerManager customerManager) {
     this.shippings = new ArrayList<>();
@@ -24,6 +25,16 @@ public class ShippingManager {
     return shippings;
   }
 
+  public boolean updateShippingStatus(String shippingId, ShippingStatus status) {
+    // Update the status of the specified order
+    for (Shipping shipping : shippings) {
+      if (shipping.getShippingId().equalsIgnoreCase(shippingId)) { // change here
+        shipping.setShippingStatus(status);
+        return true;
+      }
+    }
+    return false; // Order not found
+  }
 
   public List<Shipping> searchShipping(String searchText) {
     List<Shipping> results = new ArrayList<>();

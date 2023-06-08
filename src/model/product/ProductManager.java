@@ -3,14 +3,14 @@ package model.product;
 import data.ProductData;
 import java.util.ArrayList;
 import java.util.List;
-import model.customer.Customer;
 
 public class ProductManager {
+
   private List<Product> products;
-  private ProductData productData;
+  private final ProductData productData;
 
 
-  private int nextProductId;
+  private final int nextProductId;
 
 
   public ProductManager() {
@@ -36,20 +36,27 @@ public class ProductManager {
     products.add(product);
   }
 
+
+  public void removeProductById(String productId) {
+    // Find the product with the given ID and remove it from the list
+    for (Product product : products) {
+      if (product.getProductId().equals(productId)) {
+        products.remove(product);
+        break;
+      }
+    }
+  }
+
   public void updateProduct(Product product) {
     // Update the product in the list
     for (int i = 0; i < products.size(); i++) {
-      if (products.get(i).getProductId() == product.getProductId()) {
+      if (products.get(i).getProductId().equals(product.getProductId())) {
         products.set(i, product);
         break;
       }
     }
   }
 
-
-  public void removeProduct(Product product) {
-    product.setAvailable(false);
-  }
 
   public List<Product> searchProductsByName(String searchText) {
     List<Product> searchResults = new ArrayList<>();
@@ -72,6 +79,16 @@ public class ProductManager {
       }
     }
     return null; // customer not found
+  }
+
+  public List<Product> getProductsByWarehouseId(String warehouseId) {
+    List<Product> productByWarehouseId = new ArrayList<>();
+    for (Product product : products) {
+      if (product.getWarehouse().getWarehouseId().equals(warehouseId)) {
+        productByWarehouseId.add(product);
+      }
+    }
+    return productByWarehouseId;
   }
 
   public void loadProducts() {

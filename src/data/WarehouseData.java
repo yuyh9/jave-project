@@ -2,19 +2,23 @@ package data;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.product.*;
+import model.product.Product;
+import model.product.ProductManager;
 import model.warehouse.Warehouse;
 
 
 public class WarehouseData {
 
-  private TxtFileHandler txtFileHandler;
-  private List<Warehouse> warehouses;
+  private final TxtFileHandler txtFileHandler;
+  private final List<Warehouse> warehouses;
+  private final ProductManager productManager;
 
 
   public WarehouseData() {
     this.txtFileHandler = new TxtFileHandler();
     this.warehouses = new ArrayList<>();
+    this.productManager = new ProductManager();
+    this.productManager.loadProducts();
   }
 
   public List<Warehouse> readWarehouseData() {
@@ -29,6 +33,11 @@ public class WarehouseData {
 
       Warehouse warehouse = new Warehouse(warehouseId, warehouseName, location);
       warehouses.add(warehouse);
+
+      List<Product> products = productManager.getProductsByWarehouseId(warehouseId);
+      for (Product product : products) {
+        warehouse.addToInventory(product);
+      }
     }
 
     return warehouses;
@@ -38,7 +47,6 @@ public class WarehouseData {
     List<String> warehouseData = new ArrayList<>();
 
     for (Warehouse warehouse : warehouses) {
-
       String line = warehouse.getWarehouseId() + ","
           + warehouse.getWarehouseName() + ","
           + warehouse.getLocation();

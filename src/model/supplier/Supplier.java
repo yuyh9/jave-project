@@ -1,21 +1,21 @@
 package model.supplier;
 
-import java.util.ArrayList;
-import java.util.List;
-import model.product.Product;
-
 public class Supplier {
+
   private String supplierId;
   private String supplierName;
   private String supplierEmail;
-  private  String supplierPhone;
+  private String supplierPhone;
+  private boolean available;
 
 
-  public Supplier(String supplierId, String supplierName, String supplierEmail, String supplierPhone) {
+  public Supplier(String supplierId, String supplierName, String supplierEmail,
+      String supplierPhone) {
     this.supplierId = supplierId;
     this.supplierName = supplierName;
     this.supplierEmail = supplierEmail;
     this.supplierPhone = supplierPhone;
+    this.available = true;
   }
 
   public String getSupplierId() {
@@ -48,6 +48,14 @@ public class Supplier {
 
   public void setSupplierPhone(String supplierPhone) {
     this.supplierPhone = supplierPhone;
+  }
+
+  public boolean isAvailable() {
+    return available;
+  }
+
+  public void setAvailable(boolean available) {
+    this.available = available;
   }
 
   @Override

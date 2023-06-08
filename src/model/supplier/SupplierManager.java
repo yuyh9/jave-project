@@ -4,17 +4,15 @@ import data.SupplierData;
 import java.util.ArrayList;
 import java.util.List;
 
-import model.product.ProductManager;
 
 public class SupplierManager {
 
   private List<Supplier> suppliers;
-  private SupplierData supplierData;
+  private final SupplierData supplierData;
 
   public SupplierManager() {
     this.suppliers = new ArrayList<>();
     this.supplierData = new SupplierData();
-
   }
 
   public List<Supplier> getSuppliers() {
@@ -25,10 +23,10 @@ public class SupplierManager {
     suppliers.add(supplier);
   }
 
-  public void removeSupplier(Supplier supplier) {
-    suppliers.remove(supplier);
+  public void activeSupplier(Supplier supplier) {
+    boolean currentAvailability = supplier.isAvailable();
+    supplier.setAvailable(!currentAvailability);
   }
-
 
   public Supplier getSupplierById(String supplierId) {
     for (Supplier supplier : suppliers) {
@@ -40,9 +38,9 @@ public class SupplierManager {
   }
 
   public void updateSupplier(Supplier supplier) {
-    // Update the customer in the list
+    // Update the supplier in the list
     for (int i = 0; i < this.suppliers.size(); i++) {
-      if (this.suppliers.get(i).getSupplierId() == supplier.getSupplierId()) {
+      if (this.suppliers.get(i).getSupplierId().equals(supplier.getSupplierId())) {
         this.suppliers.set(i, supplier);
         break;
       }
@@ -65,7 +63,6 @@ public class SupplierManager {
     suppliers = supplierData.readSupplierData();
 
   }
-
 
   public void saveSuppliers() {
     supplierData.writeSupplierData(suppliers);

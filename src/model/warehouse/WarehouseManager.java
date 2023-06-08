@@ -3,18 +3,21 @@ package model.warehouse;
 import data.WarehouseData;
 import java.util.ArrayList;
 import java.util.List;
-import model.product.*;
-import model.supplier.Supplier;
-
+import model.product.Product;
+import model.product.ProductManager;
 
 public class WarehouseManager {
+
   private List<Warehouse> warehouses;
-  private WarehouseData warehouseData;
+  private List<Product> products;
+  private final WarehouseData warehouseData;
+  private final ProductManager productManager;
 
-
-  public WarehouseManager() {
+  public WarehouseManager(ProductManager productManager) {
     this.warehouses = new ArrayList<>();
+    this.products = new ArrayList<>();
     this.warehouseData = new WarehouseData();
+    this.productManager = productManager;
 
   }
 
@@ -27,7 +30,9 @@ public class WarehouseManager {
   }
 
   public void removeWarehouse(Warehouse warehouse) {
-    warehouses.remove(warehouse);
+    if (products.isEmpty()) {
+      warehouses.remove(warehouse);
+    }
   }
 
   public Warehouse getWarehouseById(String warehouseId) {
@@ -39,6 +44,16 @@ public class WarehouseManager {
     return null; // Warehouse not found
   }
 
+
+  public void updateWarehouse(Warehouse warehouse) {
+    // Update the customer in the list
+    for (int i = 0; i < this.warehouses.size(); i++) {
+      if (this.warehouses.get(i).getWarehouseId().equals(warehouse.getWarehouseId())) {
+        this.warehouses.set(i, warehouse);
+        break;
+      }
+    }
+  }
 
   public List<Warehouse> searchWarehouse(String searchText) {
     List<Warehouse> results = new ArrayList<>();
@@ -52,17 +67,14 @@ public class WarehouseManager {
     return results;
   }
 
-
-
   public void loadWarehouses() {
     warehouses = warehouseData.readWarehouseData();
+    products = productManager.getProducts();
 
   }
-
 
   public void saveWarehouses() {
     warehouseData.writeWarehouseData(warehouses);
   }
-
 
 }

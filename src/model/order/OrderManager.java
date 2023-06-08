@@ -1,20 +1,20 @@
 package model.order;
+
 import data.OrderData;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import model.product.*;
-import model.customer.*;
-import model.supplier.Supplier;
+import model.customer.CustomerManager;
+import model.product.Product;
+import model.product.ProductManager;
 
 
 public class OrderManager implements Serializable {
 
   private List<Order> orderList;
-  private OrderData orderData;
-  private ProductManager productManager;
-  private CustomerManager customerManager;
-
+  private final OrderData orderData;
+  private final ProductManager productManager;
+  private final CustomerManager customerManager;
 
 
   public OrderManager(ProductManager productManager, CustomerManager customerManager) {
@@ -24,6 +24,7 @@ public class OrderManager implements Serializable {
     this.customerManager = customerManager;
 
   }
+
   public List<Order> getOrders() {
     return orderList;
   }

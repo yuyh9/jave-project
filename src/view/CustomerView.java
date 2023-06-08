@@ -1,19 +1,36 @@
 package view;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import model.customer.Customer;
-import model.shipping.ShippingStatus;
 
 public class CustomerView extends JFrame {
-  private JPanel customerPanel;
-  private JTable customerTable;
-  private JButton addButton, removeButton, updateButton, searchButton, backButton;
-  private DefaultTableModel customerTableModel;
-  private JTextField idField, nameField, contactField, addressField, searchField;
+
+  private final JPanel customerPanel;
+  private final JTable customerTable;
+  private final JButton addButton;
+  private final JButton activeButton;
+  private final JButton updateButton;
+  private final JButton searchButton;
+  private final JButton backButton;
+  private final DefaultTableModel customerTableModel;
+  private final JTextField idField;
+  private final JTextField nameField;
+  private final JTextField contactField;
+  private final JTextField addressField;
+  private final JTextField searchField;
 
   public CustomerView() {
     setTitle("Customer Management");
@@ -23,9 +40,9 @@ public class CustomerView extends JFrame {
 
     customerPanel = new JPanel(new BorderLayout());
     JPanel inputPanel = new JPanel(new BorderLayout());
-    idField = new JTextField(13);
-    nameField = new JTextField(13);
-    contactField = new JTextField(13);
+    idField = new JTextField(10);
+    nameField = new JTextField(10);
+    contactField = new JTextField(10);
     addressField = new JTextField(20);
     searchField = new JTextField(20);
 
@@ -48,18 +65,19 @@ public class CustomerView extends JFrame {
     // Create the button panel
     JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     addButton = new JButton("Add Customer");
-    removeButton = new JButton("Remove Customer");
+    activeButton = new JButton("Activate");
     updateButton = new JButton("Update Information");
     searchButton = new JButton("Search");
     backButton = new JButton("Back");
     buttonPanel.add(addButton);
-    buttonPanel.add(removeButton);
+    buttonPanel.add(activeButton);
     buttonPanel.add(updateButton);
     buttonPanel.add(searchButton);
     buttonPanel.add(backButton);
 
     // Create the table and scroll pane
-    String[] columnNames = {"Customer ID", "Customer Name", "Email / Phone", "Shipping Address"};
+    String[] columnNames = {"Customer ID", "Customer Name", "Email / Phone", "Shipping Address",
+        "Active/Inactive"};
     customerTableModel = new DefaultTableModel(columnNames, 0);
     customerTable = new JTable(customerTableModel);
     customerTable.setDefaultEditor(Object.class, null);
@@ -93,18 +111,19 @@ public class CustomerView extends JFrame {
           customer.getCustomerId(),
           customer.getName(),
           customer.getContactInfo(),
-          customer.getShippingAddress()
+          customer.getShippingAddress(),
+          customer.isAvailable(),
       };
       customerTableModel.addRow(rowData);
     }
   }
 
   public String getCustomerId() {
+    // Retrieve the id from the text field
     return idField.getText();
   }
 
   public String getCustomerName() {
-    // Retrieve the name from the text field
     return nameField.getText();
   }
 
@@ -124,8 +143,8 @@ public class CustomerView extends JFrame {
     return addButton;
   }
 
-  public JButton getRemoveButton() {
-    return removeButton;
+  public JButton getActiveButton() {
+    return activeButton;
   }
 
   public JButton getUpdateButton() {

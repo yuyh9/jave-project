@@ -1,25 +1,44 @@
 package view.shipping;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import model.customer.CustomerManager;
 import model.order.Order;
 import model.order.OrderManager;
-
+import model.product.ProductManager;
+import model.shipping.Shipping;
+import model.shipping.ShippingManager;
 
 public class OrderIdSelectionView extends JFrame {
 
   private JTable orderIdTable;
   private DefaultTableModel orderIdTableModel;
-  private JButton selectButton, cancelButton,searchButton;
+  private JButton selectButton, cancelButton, searchButton;
   private JTextField searchField;
-  private ShippingView shippingView;
-  private OrderManager orderManager;
+  private final ShippingView shippingView;
+  private final OrderManager orderManager;
+  private final ShippingManager shippingManager;
+  private final CustomerManager customerManager;
+  private final ProductManager productManager;
 
-  public OrderIdSelectionView(ShippingView shippingView, OrderManager orderManager) {
+
+  public OrderIdSelectionView(ShippingView shippingView, OrderManager orderManager,
+      ShippingManager shippingManager) {
     this.shippingView = shippingView;
     this.orderManager = orderManager;
+    this.shippingManager = shippingManager;
+    this.productManager = new ProductManager();
+    this.customerManager = new CustomerManager(this.orderManager);
     initializeUI();
   }
 
@@ -92,9 +111,25 @@ public class OrderIdSelectionView extends JFrame {
 
   public void updateOrderIds(List<Order> orderIds) {
     orderIdTableModel.setRowCount(0);
+
     for (Order order : orderIds) {
-      Object[] rowData = {order.getOrderId(), order.getCustomer()};
-      orderIdTableModel.addRow(rowData);
+      String orderId = order.getOrderId();
+
+      // Check if the order ID is already associated with a shipping
+      boolean isAssociatedWithShipping = false;
+      for (Shipping shipping : shippingManager.getShipping()) {
+        if (shipping.getAssociatedOrder().getOrderId().equals(orderId)) {
+          isAssociatedWithShipping = true;
+          break;
+        }
+      }
+
+      // Add the order ID to the table if it is not associated with a shipping
+      if (!isAssociatedWithShipping) {
+        Object[] rowData = {orderId, order.getCustomer()};
+        orderIdTableModel.addRow(rowData);
+      }
     }
   }
+
 }

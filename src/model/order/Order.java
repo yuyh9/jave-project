@@ -1,18 +1,18 @@
 package model.order;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 import model.customer.Customer;
 
 public class Order {
+
   private String orderId;
-  private Customer customer;
+  private final Customer customer;
   private Date orderDate;
   private OrderStatus status;
-  private List<OrderItem> orderItems;
+  private final List<OrderItem> orderItems;
 
 
   public Order(String orderId, Customer customer, String orderDate, OrderStatus status,

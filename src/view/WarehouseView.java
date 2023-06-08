@@ -1,17 +1,34 @@
 package view;
-import java.awt.*;
 
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.warehouse.Warehouse;
-import java.util.List;
 
 public class WarehouseView extends JFrame {
-  private JPanel warehousePanel;
-  private JTable warehouseTable;
-  private DefaultTableModel warehouseTableModel;
-  private JTextField idField, nameField, locationField,searchField;
-  private JButton addButton, updateButton, deleteButton, searchButton, backButton;
+
+  private final JPanel warehousePanel;
+  private final JTable warehouseTable;
+  private final DefaultTableModel warehouseTableModel;
+  private final JTextField idField;
+  private final JTextField nameField;
+  private final JTextField locationField;
+  private final JTextField searchField;
+  private final JButton addButton;
+  private final JButton updateButton;
+  private final JButton removeButton;
+  private final JButton searchButton;
+  private final JButton backButton;
 
   public WarehouseView() {
     setTitle("Warehouse Management");
@@ -20,7 +37,7 @@ public class WarehouseView extends JFrame {
     setLocationRelativeTo(null);
 
     warehousePanel = new JPanel(new BorderLayout());
-    String[] columnNames = {"Id", "Name", "Location"};
+    String[] columnNames = {"Id", "Name", "Location", "ProductsList"};
     warehouseTableModel = new DefaultTableModel(columnNames, 0);
     warehouseTable = new JTable(warehouseTableModel);
     warehouseTable.setDefaultEditor(Object.class, null);
@@ -51,12 +68,12 @@ public class WarehouseView extends JFrame {
 
     JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     addButton = new JButton("Add");
-    deleteButton = new JButton("Remove");
+    removeButton = new JButton("Remove");
     updateButton = new JButton("Update");
     searchButton = new JButton("Search");
     backButton = new JButton("Back");
     buttonPanel.add(addButton);
-    buttonPanel.add(deleteButton);
+    buttonPanel.add(removeButton);
     buttonPanel.add(updateButton);
     buttonPanel.add(searchButton);
     buttonPanel.add(backButton);
@@ -71,14 +88,19 @@ public class WarehouseView extends JFrame {
 
     add(warehousePanel);
   }
+
   public void updateWarehouses(List<Warehouse> warehouses) {
     warehouseTableModel.setRowCount(0);
 
     for (Warehouse warehouse : warehouses) {
+      List<String> productNames = warehouse.getProductNames();
+      String productList = String.join(",", productNames);
+
       Object[] rowData = {
           warehouse.getWarehouseId(),
           warehouse.getWarehouseName(),
           warehouse.getLocation(),
+          productList
       };
 
       warehouseTableModel.addRow(rowData);
@@ -100,17 +122,19 @@ public class WarehouseView extends JFrame {
   public String getSearchQuery() {
     return searchField.getText();
   }
+
   public JButton getAddButton() {
     return addButton;
   }
 
-  public JButton getDeleteButton() {
-    return deleteButton;
+  public JButton getRemoveButton() {
+    return removeButton;
   }
 
   public JButton getUpdateButton() {
     return updateButton;
   }
+
   public JButton getSearchButton() {
     return searchButton;
   }
@@ -118,15 +142,18 @@ public class WarehouseView extends JFrame {
   public JButton getBackButton() {
     return backButton;
   }
+
   public JTable getWarehouseTable() {
     return warehouseTable;
   }
+
   public void clearTextField() {
     idField.setText("");
     nameField.setText("");
     locationField.setText("");
     searchField.setText("");
   }
+
   public void displayMessage(String s) {
     // Display an error message to the user, e.g., using JOptionPane
     JOptionPane.showMessageDialog(this, s, "Message", JOptionPane.ERROR_MESSAGE);

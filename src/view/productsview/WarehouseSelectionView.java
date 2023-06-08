@@ -1,21 +1,30 @@
 package view.productsview;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import model.warehouse.Warehouse;
 import model.warehouse.WarehouseManager;
 
 public class WarehouseSelectionView extends JFrame {
+
   private JTable warehouseTable;
   private JButton selectButton, cancelButton, searchButton;
   private DefaultTableModel warehouseTableModel;
   private JTextField searchField;
-  private ProductView productView;
-  private WarehouseManager warehouseManager;
-  private List<Warehouse> warehouses;
+  private final ProductView productView;
+  private final WarehouseManager warehouseManager;
+  private final List<Warehouse> warehouses;
 
 
   public WarehouseSelectionView(ProductView productView, WarehouseManager warehouseManager) {

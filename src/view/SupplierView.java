@@ -1,17 +1,35 @@
 package view;
-import java.awt.*;
-import javax.swing.*;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import model.supplier.*;
+import model.supplier.Supplier;
 
 public class SupplierView extends JFrame {
 
-  private JPanel supplierPanel;
-  private JTable supplierTable;
-  private DefaultTableModel supplierTableModel;
-  private JTextField idField, nameField, emailField, phoneField, searchField;
-  private JButton addButton, updateButton, deleteButton,searchButton, backButton;
+  private final JPanel supplierPanel;
+  private final JTable supplierTable;
+  private final DefaultTableModel supplierTableModel;
+  private final JTextField idField;
+  private final JTextField nameField;
+  private final JTextField emailField;
+  private final JTextField phoneField;
+  private final JTextField searchField;
+  private final JButton addButton;
+  private final JButton updateButton;
+  private final JButton activeButton;
+  private final JButton searchButton;
+  private final JButton backButton;
 
 
   public SupplierView() {
@@ -21,7 +39,7 @@ public class SupplierView extends JFrame {
     setLocationRelativeTo(null);
 
     supplierPanel = new JPanel(new BorderLayout());
-    String[] columnNames = {"Supplier Id", "Supplier Name", "Email", "Phone"};
+    String[] columnNames = {"Supplier Id", "Supplier Name", "Email", "Phone", "Active/Inactive"};
     supplierTableModel = new DefaultTableModel(columnNames, 0);
     supplierTable = new JTable(supplierTableModel);
     supplierTable.setDefaultEditor(Object.class, null);
@@ -54,12 +72,12 @@ public class SupplierView extends JFrame {
 
     JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     addButton = new JButton("Add");
-    deleteButton = new JButton("Remove");
+    activeButton = new JButton("Activate");
     updateButton = new JButton("Update");
     searchButton = new JButton("Search");
     backButton = new JButton("Back");
     buttonPanel.add(addButton);
-    buttonPanel.add(deleteButton);
+    buttonPanel.add(activeButton);
     buttonPanel.add(updateButton);
     buttonPanel.add(searchButton);
     buttonPanel.add(backButton);
@@ -78,16 +96,15 @@ public class SupplierView extends JFrame {
   public void updateSuppliers(List<Supplier> suppliers) {
     supplierTableModel.setRowCount(0);
     for (Supplier supplier : suppliers) {
-
       Object[] rowData = {
           supplier.getSupplierId(),
           supplier.getSupplierName(),
           supplier.getSupplierEmail(),
           supplier.getSupplierPhone(),
-
+          supplier.isAvailable(),
       };
-
       supplierTableModel.addRow(rowData);
+
     }
   }
 
@@ -107,7 +124,6 @@ public class SupplierView extends JFrame {
     return phoneField.getText();
   }
 
-
   public String getSearchQuery() {
     return searchField.getText();
   }
@@ -116,17 +132,17 @@ public class SupplierView extends JFrame {
     return addButton;
   }
 
-  public JButton getDeleteButton() {
-    return deleteButton;
+  public JButton getActiveButton() {
+    return activeButton;
   }
 
   public JButton getUpdateButton() {
     return updateButton;
   }
+
   public JButton getSearchButton() {
     return searchButton;
   }
-
 
   public JButton getBackButton() {
     return backButton;
@@ -135,6 +151,7 @@ public class SupplierView extends JFrame {
   public JTable getSupplierTable() {
     return supplierTable;
   }
+
   public void clearTextField() {
     idField.setText("");
     nameField.setText("");

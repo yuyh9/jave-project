@@ -1,9 +1,9 @@
-
-
-import view.*;
-import controller.*;
+import controller.LoginController;
+import view.HomePageView;
+import view.LoginView;
 
 public class System {
+
   public static void main(String[] args) {
     LoginView loginView = new LoginView();
     HomePageView homePageView = new HomePageView();

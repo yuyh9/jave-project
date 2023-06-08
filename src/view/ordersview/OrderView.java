@@ -1,64 +1,95 @@
 package view.ordersview;
-import java.awt.*;
+
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import model.order.*;
-import model.product.*;
+import model.order.Order;
+import model.order.OrderItem;
+import model.order.OrderStatus;
+import model.product.Product;
 
 public class OrderView extends JFrame {
 
-  private JPanel orderPanel;
-  private JTable orderTable;
-  private JButton createButton, viewButton, updateButton, backButton,selectProductButton;
-  private JTextField orderIdField, customerIdField, orderDateField;
-  private DefaultTableModel orderTableModel;
-  private JComboBox<OrderStatus> statusComboBox;
-  private List<OrderItem> orderItems = new ArrayList<>();
-
-  private JTextArea orderListField;
+  private final JPanel orderPanel;
+  private final JTable orderTable;
+  private final JButton createButton;
+  private final JButton viewButton;
+  private final JButton updateButton;
+  private final JButton backButton;
+  private final JButton selectProductButton;
+  private final JButton customerIdButton;
+  private final JTextField orderIdField;
+  private final JTextField customerIdField;
+  private final JTextField orderDateField;
+  private final DefaultTableModel orderTableModel;
+  private final JComboBox<OrderStatus> statusComboBox;
+  private final List<OrderItem> orderItems = new ArrayList<>();
+  private final JTextArea orderListField;
 
   public OrderView() {
 
     setTitle("Order Management");
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setSize(800, 600);
+    setSize(850, 700);
     setLocationRelativeTo(null);
 
     orderPanel = new JPanel(new BorderLayout());
+    String[] columnNames = {"Order ID", "Customer ID", "Order Date", "Status", "Order List",
+        "Total Amount"};
+    orderTableModel = new DefaultTableModel(columnNames, 0);
+    orderTable = new JTable(orderTableModel);
+    orderTable.setDefaultEditor(Object.class, null);
 
-    // Removing statusField from input panel and add it to the button panel
-    // because status is selected using ComboBox
-    JPanel inputPanel = new JPanel(new GridLayout(6, 2, 10, 10));
-    inputPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
+    JScrollPane scrollPane = new JScrollPane(orderTable);
+    orderPanel.add(scrollPane, BorderLayout.CENTER);
+
+    JPanel inputPanel = new JPanel(new BorderLayout());
     statusComboBox = new JComboBox<>(OrderStatus.values());
-
-    orderIdField = new JTextField();
-    customerIdField = new JTextField();
-    orderDateField = new JTextField();
-    orderListField = new JTextArea();
+    orderIdField = new JTextField(10);
+    customerIdField = new JTextField(10);
+    orderDateField = new JTextField(10);
+    orderListField = new JTextArea(5, 20);
     //orderListField.setEditable(true);
     orderListField.setLineWrap(true);
-
     JScrollPane orderListScrollPane = new JScrollPane(orderListField);
-    inputPanel.add(new JLabel("Order ID:"));
-    inputPanel.add(orderIdField);
-    inputPanel.add(new JLabel("Customer ID:"));
-    inputPanel.add(customerIdField);
-    inputPanel.add(new JLabel("Order Date:"));
-    inputPanel.add(orderDateField);
-    inputPanel.add(new JLabel("Status:"));
-    inputPanel.add(statusComboBox);
-    inputPanel.add(new JLabel("Order List:"));
-    inputPanel.add(orderListScrollPane);selectProductButton = new JButton("Select Products");
-    inputPanel.add(selectProductButton);
+
+    JPanel leftInputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+    leftInputPanel.add(new JLabel("Order ID:"));
+    leftInputPanel.add(orderIdField);
+    leftInputPanel.add(new JLabel("Customer ID:"));
+    leftInputPanel.add(customerIdField);
+    customerIdButton = new JButton("search customer ID");
+    leftInputPanel.add(customerIdButton);
+    JPanel rightInputPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+    rightInputPanel.add(new JLabel("Order Date:"));
+    rightInputPanel.add(orderDateField);
+
+    rightInputPanel.add(new JLabel("Status:"));
+    rightInputPanel.add(statusComboBox);
+    rightInputPanel.add(new JLabel("Order List:"));
+    rightInputPanel.add(orderListScrollPane);
+    selectProductButton = new JButton("Select");
+    rightInputPanel.add(selectProductButton);
+    inputPanel.add(leftInputPanel, BorderLayout.NORTH);
+    inputPanel.add(rightInputPanel, BorderLayout.SOUTH);
 
     // Create the button panel
     JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-
     createButton = new JButton("Create Order");
     viewButton = new JButton("view Order");
     updateButton = new JButton("Update Order Status");
@@ -69,21 +100,10 @@ public class OrderView extends JFrame {
     buttonPanel.add(updateButton);
     buttonPanel.add(backButton);
 
-
-    // Create a panel to hold the input panel and button panel
     JPanel inputButtonPanel = new JPanel(new BorderLayout());
     inputButtonPanel.add(inputPanel, BorderLayout.NORTH);
     inputButtonPanel.add(buttonPanel, BorderLayout.CENTER);
 
-    String[] columnNames = {"Order ID", "Customer ID", "Order Date", "Status", "Order List",
-        "Total Amount"};
-    orderTableModel = new DefaultTableModel(columnNames, 0);
-    orderTable = new JTable(orderTableModel);
-    orderTable.setDefaultEditor(Object.class, null);
-
-    JScrollPane scrollPane = new JScrollPane(orderTable);
-
-    // Add inputButtonPanel and scroll pane to the orderPanel
     orderPanel.add(inputButtonPanel, BorderLayout.NORTH);
     orderPanel.add(scrollPane, BorderLayout.CENTER);
     orderPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
@@ -135,7 +155,6 @@ public class OrderView extends JFrame {
   }
 
 
-
   public JButton getCreateButton() {
     return createButton;
   }
@@ -155,6 +174,10 @@ public class OrderView extends JFrame {
 
   public JButton getSelectButton() {
     return selectProductButton;
+  }
+
+  public JButton getCustomerIdButton() {
+    return customerIdButton;
   }
 
   public String getOrderIdField() {
@@ -180,6 +203,7 @@ public class OrderView extends JFrame {
   public void addOrderItem(OrderItem orderItem) {
     orderItems.add(orderItem);
   }
+
   public void updateProductField() {
     StringBuilder sb = new StringBuilder();
     for (OrderItem orderItem : orderItems) {
@@ -203,6 +227,9 @@ public class OrderView extends JFrame {
     statusComboBox.setSelectedIndex(0);
   }
 
+  public void updateCustomerIdField(String customerId) {
+    customerIdField.setText(customerId);
+  }
 }
 
 

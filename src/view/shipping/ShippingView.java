@@ -1,21 +1,36 @@
 package view.shipping;
 
-import java.awt.*;
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.util.List;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import model.shipping.Shipping;
-import model.shipping.ShippingStatus;;
+import model.shipping.ShippingStatus;
 
 public class ShippingView extends JFrame {
 
-  private JPanel shippingPanel;
-  private JTable shippingTable;
-  private DefaultTableModel shippingTableModel;
-  private JTextField idField, orderIdField, searchField;
-  private JButton addButton, updateButton,searchButton, backButton,
-      orderIdSearchButton;
-  private JComboBox<ShippingStatus> statusComboBox;
+  private final JPanel shippingPanel;
+  private final JTable shippingTable;
+  private final DefaultTableModel shippingTableModel;
+  private final JTextField idField;
+  private final JTextField orderIdField;
+  private final JTextField searchField;
+  private final JButton addButton;
+  private final JButton updateButton;
+  private final JButton searchButton;
+  private final JButton backButton;
+  private final JButton orderIdSearchButton;
+  private final JComboBox<ShippingStatus> statusComboBox;
 
   public ShippingView() {
     setTitle("Shipping Management");
@@ -56,10 +71,9 @@ public class ShippingView extends JFrame {
     inputPanel.add(leftInputPanel, BorderLayout.NORTH);
     inputPanel.add(rightInputPanel, BorderLayout.SOUTH);
 
-
     JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     addButton = new JButton("Add");
-    updateButton = new JButton("Update");
+    updateButton = new JButton("Update Shipping Status");
     searchButton = new JButton("Search");
     backButton = new JButton("Back");
     buttonPanel.add(addButton);
@@ -77,6 +91,7 @@ public class ShippingView extends JFrame {
 
     add(shippingPanel);
   }
+
   public void updateShipping(List<Shipping> shippingList) {
     shippingTableModel.setRowCount(0);
 
@@ -87,9 +102,11 @@ public class ShippingView extends JFrame {
       String customerName = shipping.getAssociatedOrder().getCustomer().getName();
       String customerAddress = shipping.getCustomerAddress();
       String status = shipping.getShippingStatus().toString();
-      shippingTableModel.addRow(new Object[]{shippingId, orderId, customerName, customerAddress, status});
+      shippingTableModel.addRow(
+          new Object[]{shippingId, orderId, customerName, customerAddress, status});
     }
   }
+
   public void updateShippingField(String supplierId) {
     orderIdField.setText(supplierId);
   }
@@ -103,14 +120,12 @@ public class ShippingView extends JFrame {
     return orderIdField;
   }
 
-  public String getSearchQuery() {
-    return searchField.getText();
+  public ShippingStatus getShippingStatus() {
+    return (ShippingStatus) statusComboBox.getSelectedItem();
   }
 
-  public void clearTextField() {
-    idField.setText("");
-    orderIdField.setText("");
-    searchField.setText("");
+  public String getSearchQuery() {
+    return searchField.getText();
   }
 
   public JButton getAddButton() {
@@ -125,13 +140,18 @@ public class ShippingView extends JFrame {
     return searchButton;
   }
 
-
   public JButton getBackButton() {
     return backButton;
   }
 
   public JButton getOrderIdSearchButton() {
     return orderIdSearchButton;
+  }
+
+  public void clearTextField() {
+    idField.setText("");
+    orderIdField.setText("");
+    searchField.setText("");
   }
 
   public void displayMessage(String s) {

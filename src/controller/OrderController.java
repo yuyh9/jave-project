@@ -1,125 +1,132 @@
 package controller;
+
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import model.customer.CustomerManager;
-import model.order.*;
+import model.order.Order;
+import model.order.OrderManager;
+import model.order.OrderStatus;
 import model.product.ProductManager;
-import view.*;
+import view.HomePageView;
+import view.ordersview.CustomerIdSelectionView;
 import view.ordersview.OrderListSelectionView;
 import view.ordersview.OrderView;
 
 
 public class OrderController {
 
-  private Order currentOrder;
-  private ProductManager productManager;
-  private OrderView orderView;
-  private HomePageView homePageView;
+  private final ProductManager productManager;
+  private final OrderView orderView;
+  private final HomePageView homePageView;
   private OrderManager orderManager;
-  private CustomerManager customerManager;
+  private final CustomerManager customerManager;
   private OrderListSelectionView orderListSelectionView;
+  private final CustomerIdSelectionView customerIdSelectionView;
 
   public OrderController(HomePageView homePageView, OrderView orderView) {
     this.homePageView = homePageView;
     this.orderView = orderView;
     this.productManager = new ProductManager();
     this.customerManager = new CustomerManager(this.orderManager);
-    this.orderManager = new OrderManager(this.productManager,this.customerManager);
+    this.orderManager = new OrderManager(this.productManager, this.customerManager);
     this.orderListSelectionView = new OrderListSelectionView(this.orderView, this.productManager);
-
-
-    attachButtonListeners();
+    this.customerIdSelectionView = new CustomerIdSelectionView(this.orderView,
+        this.customerManager);
+    attachOrderButtonListeners();
+    //attachButtonListeners();
     orderView.setVisible(true);
     loadOrders();
     updateOrderData();
   }
 
-  private void attachButtonListeners() {
-    ActionListener backButtonListener = e -> {
-      homePageView.setVisible(true);
-      orderView.dispose();
-    };
+  private void attachOrderButtonListeners() {
+    orderView.getBackButton().addActionListener(e -> backHomePage());
+    orderView.getCreateButton().addActionListener(e -> addOrder());
+    orderView.getViewButton().addActionListener(e -> viewOrder());
+    orderView.getUpdateButton().addActionListener(e -> updateOrder());
+    orderView.getSelectButton().addActionListener(e -> orderListSelect());
+    orderView.getCustomerIdButton().addActionListener(e -> customerIdSelect());
+  }
 
+  private void backHomePage() {
+    homePageView.setVisible(true);
+    orderView.dispose();
+  }
 
-    ActionListener createButtonListener = e -> {
+  private void addOrder() {
 
-    };
+  }
+  private void viewOrder() {
+    String orderId = JOptionPane.showInputDialog(orderView, "Enter the order ID:");
 
-    ActionListener viewOrderButtonListener = e -> {
-      String orderId = JOptionPane.showInputDialog(orderView, "Enter the order ID:");
+    // Assuming you have a method to get order by ID in your OrderManager class
+    Order order = orderManager.getOrderById(orderId);
 
-      // Assuming you have a method to get order by ID in your OrderManager class
-      Order order = orderManager.getOrderById(orderId);
+    if (order != null) {
+      showOrderDetails(order);
+    } else {
+      JOptionPane.showMessageDialog(orderView, "Order not found!");
+    }
 
-      if (order != null) {
-        showOrderDetails(order);
-      } else {
-        JOptionPane.showMessageDialog(orderView, "Order not found!");
-      }
+  }
 
-    };
+  private void updateOrder() {
+    String orderId = JOptionPane.showInputDialog(orderView,
+        "Enter the order ID to update status:");
 
-    ActionListener updateButtonListener = e -> {
-      String orderId = JOptionPane.showInputDialog(orderView, "Enter the order ID to update status:");
+    OrderStatus[] statuses = OrderStatus.values();
+    String[] statusOptions = new String[statuses.length];
 
-      OrderStatus[] statuses = OrderStatus.values();
-      String[] statusOptions = new String[statuses.length];
+    for (int i = 0; i < statuses.length; i++) {
+      statusOptions[i] = statuses[i].name();
+    }
 
-      for(int i = 0; i < statuses.length; i++){
-        statusOptions[i] = statuses[i].name();
-      }
+    String newStatusInput = (String) JOptionPane.showInputDialog(orderView,
+        "Choose the new order status:",
+        "Order Status",
+        JOptionPane.QUESTION_MESSAGE,
+        null,
+        statusOptions,
+        statusOptions[0]
+    );
 
-      String newStatusInput = (String) JOptionPane.showInputDialog(orderView,
-          "Choose the new order status:",
-          "Order Status",
-          JOptionPane.QUESTION_MESSAGE,
-          null,
-          statusOptions,
-          statusOptions[0]
-      );
+    OrderStatus newStatus = OrderStatus.valueOf(newStatusInput);
+    boolean isUpdated = orderManager.updateOrderStatus(orderId, newStatus);
 
-      OrderStatus newStatus = OrderStatus.valueOf(newStatusInput);
-      boolean isUpdated = orderManager.updateOrderStatus(orderId,newStatus);
+    if (isUpdated) {
+      JOptionPane.showMessageDialog(orderView, "Order status updated successfully!");
+      updateOrderData(); // To reflect the changes in the GUI
+    } else {
+      JOptionPane.showMessageDialog(orderView, "Failed to update order status!");
+    }
+  }
 
-      if (isUpdated) {
-        JOptionPane.showMessageDialog(orderView, "Order status updated successfully!");
-        updateOrderData(); // To reflect the changes in the GUI
-      } else {
-        JOptionPane.showMessageDialog(orderView, "Failed to update order status!");
-      }
-    };
+  private void orderListSelect() {
+    orderListSelectionView = new OrderListSelectionView(orderView, this.productManager);
+    orderListSelectionView.setVisible(true);
 
-    ActionListener selectButtonActionListener = e -> {
-      orderListSelectionView = new OrderListSelectionView(orderView, this.productManager);
-      orderListSelectionView.setVisible(true);
-    };
-
-    orderView.getBackButton().addActionListener(backButtonListener);
-    orderView.getCreateButton().addActionListener(createButtonListener);
-    orderView.getViewButton().addActionListener(viewOrderButtonListener);
-    orderView.getUpdateButton().addActionListener(updateButtonListener);
-    orderView.getSelectButton().addActionListener(selectButtonActionListener);
-
-
-
-    // Add other button listeners and logic here
+  }
+  private void customerIdSelect() {
+    customerIdSelectionView.updateCustomerId(customerManager.getCustomers());
+    customerIdSelectionView.setVisible(true);
   }
 
   private void showOrderDetails(Order order) {
 
   }
 
-
-  private void loadOrders() {
+  public void loadOrders() {
     orderManager.loadOrders();
     productManager.loadProducts();
+    customerManager.loadCustomers();
   }
 
-  private void saveOrders() {
+  public void saveOrders() {
     orderManager.saveOrders();
 
   }
-  private void updateOrderData() {
+
+  public void updateOrderData() {
     orderView.updateOrders(orderManager.getOrders());
   }
 }

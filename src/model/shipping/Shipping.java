@@ -3,12 +3,14 @@ package model.shipping;
 import model.order.Order;
 
 public class Shipping {
+
   private String shippingId;
   private Order associatedOrder;
   private String shippingAddress;
   private ShippingStatus shippingStatus;
 
-  public Shipping(String shippingId, Order associatedOrder, String shippingAddress, ShippingStatus shippingStatus) {
+  public Shipping(String shippingId, Order associatedOrder, String shippingAddress,
+      ShippingStatus shippingStatus) {
     this.shippingId = shippingId;
     this.associatedOrder = associatedOrder;
     this.shippingAddress = shippingAddress;

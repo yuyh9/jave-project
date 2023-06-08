@@ -8,8 +8,8 @@ import model.order.OrderManager;
 public class CustomerManager {
 
   private List<Customer> customer;
-  private CustomerData customerData;
-  private OrderManager orderManager;
+  private final CustomerData customerData;
+  private final OrderManager orderManager;
 
   public CustomerManager(OrderManager orderManager) {
     this.customer = new ArrayList<>();
@@ -25,19 +25,22 @@ public class CustomerManager {
     this.customer.add(customer);
   }
 
-  public void removeCustomer(Customer customer) {
-    this.customer.remove(customer);
+
+  public void activeCustomer(Customer customer) {
+    boolean currentAvailability = customer.isAvailable();
+    customer.setAvailable(!currentAvailability);
   }
 
   public void updateCustomer(Customer customer) {
     // Update the customer in the list
     for (int i = 0; i < this.customer.size(); i++) {
-      if (this.customer.get(i).getCustomerId() == customer.getCustomerId()) {
+      if (this.customer.get(i).getCustomerId().equals(customer.getCustomerId())) {
         this.customer.set(i, customer);
         break;
       }
     }
   }
+
   public Customer getCustomerById(String customerId) {
     // Retrieve and return the order with the specified order ID
     for (Customer customers : customer) {  // assuming you have a collection named customers
@@ -60,17 +63,13 @@ public class CustomerManager {
     return results;
   }
 
-
-
   public void loadCustomers() {
     customer = customerData.readCustomerData();
-
   }
 
   public void saveCustomers() {
     customerData.writeCustomerData(customer);
   }
-
 
 
 }

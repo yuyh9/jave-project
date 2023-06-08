@@ -1,4 +1,4 @@
-package view.productsview;
+package view.ordersview;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -12,39 +12,37 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import model.supplier.Supplier;
-import model.supplier.SupplierManager;
+import model.customer.Customer;
+import model.customer.CustomerManager;
 
-public class SupplierSelectionView extends JFrame {
+public class CustomerIdSelectionView extends JFrame {
 
-  private JTable supplierTable;
+  private JTable customerIdTable;
   private JButton addButton, cancelButton, searchButton;
-  private DefaultTableModel supplierTableModel;
+  private DefaultTableModel customerTableModel;
   private JTextField searchField;
-  private final ProductView productView;
-  private final SupplierManager supplierManager;
+  private final OrderView orderView;
+  private final CustomerManager customerManager;
 
-
-  public SupplierSelectionView(ProductView productView, SupplierManager supplierManager) {
-    this.productView = productView;
-    this.supplierManager = supplierManager;
+  public CustomerIdSelectionView(OrderView orderView, CustomerManager customerManager) {
+    this.orderView = orderView;
+    this.customerManager = customerManager;
     initializeUI();
   }
 
   private void initializeUI() {
-    setTitle("Supplier Selection");
+    setTitle("CustomerId Selection");
     setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     setSize(400, 300);
     setLocationRelativeTo(null);
 
     JPanel mainPanel = new JPanel(new BorderLayout());
-
     // Create the supplier table
-    String[] columnNames = {"Supplier ID", "Supplier Name"};
-    supplierTableModel = new DefaultTableModel(columnNames, 0);
-    supplierTable = new JTable(supplierTableModel);
-    supplierTable.setDefaultEditor(Object.class, null);
-    JScrollPane scrollPane = new JScrollPane(supplierTable);
+    String[] columnNames = {"Customer ID", "Customer Name"};
+    customerTableModel = new DefaultTableModel(columnNames, 0);
+    customerIdTable = new JTable(customerTableModel);
+    customerIdTable.setDefaultEditor(Object.class, null);
+    JScrollPane scrollPane = new JScrollPane(customerIdTable);
 
     mainPanel.add(scrollPane, BorderLayout.CENTER);
 
@@ -71,38 +69,37 @@ public class SupplierSelectionView extends JFrame {
 
     // Add ActionListener to the addButton
     addButton.addActionListener(e -> {
-      int selectedRow = supplierTable.getSelectedRow();
+      int selectedRow = customerIdTable.getSelectedRow();
       if (selectedRow != -1) {
-        String supplierId = (String) supplierTable.getValueAt(selectedRow, 0);
-        productView.updateSupplierField(supplierId);
+        String customerId = (String) customerIdTable.getValueAt(selectedRow, 0);
+        orderView.updateCustomerIdField(customerId);
         dispose();
       } else {
         JOptionPane.showMessageDialog(
-            SupplierSelectionView.this,
-            "Please select a supplier.",
-            "Supplier Selection",
+            CustomerIdSelectionView.this,
+            "Please select a customer.",
+            "customer Selection",
             JOptionPane.WARNING_MESSAGE
         );
       }
     });
-
     // Add ActionListener to the cancelButton
     cancelButton.addActionListener(e -> dispose());
 
     searchButton.addActionListener(e -> {
       String searchQuery = searchField.getText();
-      List<Supplier> searchResults = supplierManager.searchSupplier(searchQuery);
-      updateSuppliers(searchResults);
+      List<Customer> searchResults = customerManager.searchCustomers(searchQuery);
+      updateCustomerId(searchResults);
     });
 
   }
 
-  public void updateSuppliers(List<Supplier> suppliers) {
-    supplierTableModel.setRowCount(0);
-    for (Supplier supplier : suppliers) {
-      if (supplier.isAvailable()) {
-        Object[] rowData = {supplier.getSupplierId(), supplier.getSupplierName()};
-        supplierTableModel.addRow(rowData);
+  public void updateCustomerId(List<Customer> customers) {
+    customerTableModel.setRowCount(0);
+    for (Customer customer : customers) {
+      if (customer.isAvailable()) {
+        Object[] rowData = {customer.getCustomerId(), customer.getName()};
+        customerTableModel.addRow(rowData);
       }
     }
   }

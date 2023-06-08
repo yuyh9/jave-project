@@ -1,26 +1,32 @@
 package view.ordersview;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.FlowLayout;
 import java.util.ArrayList;
-import javax.swing.*;
+import java.util.List;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
-import model.order.Order;
 import model.order.OrderItem;
 import model.product.Product;
 import model.product.ProductManager;
 
-import java.util.List;
-import model.supplier.Supplier;
-
 public class OrderListSelectionView extends JFrame {
+
   private JPanel mainPanel;
   private JTable productTable;
   private JTextField searchField, quantityField;
   private DefaultTableModel productTableModel;
-  private ProductManager productManager;
+  private final ProductManager productManager;
   private JButton selectButton, cancelButton, searchButton;
-  private OrderView orderView;
-  private List<OrderItem> orderItems;
+  private final OrderView orderView;
+  private final List<OrderItem> orderItems;
 
 
   public OrderListSelectionView(OrderView orderView, ProductManager productManager) {
@@ -45,7 +51,6 @@ public class OrderListSelectionView extends JFrame {
     searchPanel.add(new JLabel("Search by product name:"));
     searchPanel.add(searchField);
     searchPanel.add(searchButton);
-
 
     // Product Table
     String[] columnNames = {"Product ID", "Product Name", "Price", "Quantity"};
@@ -87,7 +92,6 @@ public class OrderListSelectionView extends JFrame {
         OrderItem orderItem = new OrderItem(selectedProduct, quantity);
         // Add OrderItem to the orderItems list in OrderView
         orderView.addOrderItem(orderItem);
-
         // Update the product field in OrderView
         orderView.updateProductField();
 
@@ -104,6 +108,7 @@ public class OrderListSelectionView extends JFrame {
 
     // Add ActionListener to the cancelButton
     cancelButton.addActionListener(e -> dispose());
+
     searchButton.addActionListener(e -> {
       String searchQuery = searchField.getText();
       List<Product> searchResults = productManager.searchProductsByName(searchQuery);
@@ -119,7 +124,7 @@ public class OrderListSelectionView extends JFrame {
     // Add new rows to the table
     for (Product product : products) {
       if (product.isAvailable()) {
-        productTableModel.addRow(new Object[] {product.getProductId(), product.getProductName(),
+        productTableModel.addRow(new Object[]{product.getProductId(), product.getProductName(),
             product.getPrice(), product.getQuantity()});
       }
     }

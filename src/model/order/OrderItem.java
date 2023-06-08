@@ -31,7 +31,7 @@ public class OrderItem {
   @Override
   public String toString() {
     return "Item: " +
-        "product: " +  product  +
-        ", quantity: " +  quantity  + "\n";
+        "product: " + product +
+        ", quantity: " + quantity + "\n";
   }
 }

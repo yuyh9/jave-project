@@ -1,11 +1,10 @@
 package model.product;
 
-import java.io.Serializable;
-import java.util.Objects;
 import model.supplier.Supplier;
 import model.warehouse.Warehouse;
 
 public class Product {
+
   private String productId;
   private String productName;
   private double price;
@@ -28,6 +27,7 @@ public class Product {
     this.warehouse = warehouse;
     this.available = true;
   }
+
   public String getProductId() {
     return productId;
   }
@@ -53,7 +53,7 @@ public class Product {
   }
 
   public void setPrice(double price) {
-      this.price = price;
+    this.price = price;
   }
 
   public int getQuantity() {

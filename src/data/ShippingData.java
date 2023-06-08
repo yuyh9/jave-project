@@ -2,17 +2,22 @@ package data;
 
 import java.util.ArrayList;
 import java.util.List;
-import model.customer.*;
-import model.order.*;
+import model.customer.Customer;
+import model.customer.CustomerManager;
+import model.order.Order;
+import model.order.OrderManager;
 import model.product.ProductManager;
-import model.shipping.*;
+import model.shipping.Shipping;
+import model.shipping.ShippingStatus;
 
 public class ShippingData {
-  private TxtFileHandler txtFileHandler;
-  private OrderManager orderManager;
-  private List<Shipping> shippings;
-  private ProductManager productManager;
+
+  private final TxtFileHandler txtFileHandler;
+  private final OrderManager orderManager;
+  private final List<Shipping> shippings;
+  private final ProductManager productManager;
   private CustomerManager customerManager;
+
   public ShippingData() {
     this.txtFileHandler = new TxtFileHandler();
     this.productManager = new ProductManager();
@@ -37,10 +42,8 @@ public class ShippingData {
       Shipping shipping = new Shipping(shippingId, associatedOrder, shippingAddress, status);
       this.shippings.add(shipping);
     }
-
     return this.shippings;
   }
-
 
   public void writeShippingData(List<Shipping> shippings) {
     List<String> shippingData = new ArrayList<>();
@@ -49,6 +52,7 @@ public class ShippingData {
       Order associatedOrder = shipping.getAssociatedOrder();
       String line = shipping.getShippingId() + ","
           + associatedOrder.getOrderId() + ","
+          + ","
           + shipping.getShippingStatus();
 
       shippingData.add(line);
