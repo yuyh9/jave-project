@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="ANALYZE_INJECTED_CODE" value="false" />
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e461501d-0eb0-460f-b564-6296d2818fdd" name="Changes" comment="final" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit4 Test Class" />
+        <option value="Enum" />
+        <option value="Class" />
+        <option value="Interface" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2OiibYDfkbw57ykesrVagt5rdER" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
+    "jdk.selected.JAVA_MODULE": "openjdk-19",
+    "last_opened_file_path": "/Users/yuhuiying/gitcs/project/final",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="view" />
+      <recent name="" />
+      <recent name="model" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/file" />
+      <recent name="$PROJECT_DIR$/src/file" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/src/files" />
+      <recent name="$PROJECT_DIR$/src/data" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="view" />
+      <recent name="data" />
+      <recent name="model" />
+      <recent name="controller" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="" />
+      <recent name="model" />
+      <recent name="view" />
+      <recent name="data" />
+      <recent name="controller" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.System">
+    <configuration name="LoginViewTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="view.LoginViewTest" />
+      <module name="final" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="view.productsview.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="System" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="System" />
+      <module name="final" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TxtFileHandlerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="final" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="data.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="data" />
+      <option name="MAIN_CLASS_NAME" value="data.TxtFileHandlerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TxtFileHandlerTest.readProductData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="final" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="data.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="data" />
+      <option name="MAIN_CLASS_NAME" value="data.TxtFileHandlerTest" />
+      <option name="METHOD_NAME" value="readProductData" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TxtFileHandlerTest.writeProductData" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="final" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="data.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="data" />
+      <option name="MAIN_CLASS_NAME" value="data.TxtFileHandlerTest" />
+      <option name="METHOD_NAME" value="writeProductData" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.System" />
+        <item itemvalue="Application.LoginViewTest" />
+        <item itemvalue="JUnit.TxtFileHandlerTest" />
+        <item itemvalue="JUnit.TxtFileHandlerTest.writeProductData" />
+        <item itemvalue="JUnit.TxtFileHandlerTest.readProductData" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e461501d-0eb0-460f-b564-6296d2818fdd" name="Changes" comment="" />
+      <created>1682049874734</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1682049874734</updated>
+      <workItem from="1682049875960" duration="4000" />
+      <workItem from="1682049925363" duration="4299000" />
+      <workItem from="1682054923061" duration="797000" />
+      <workItem from="1682055724544" duration="12425000" />
+      <workItem from="1682374025542" duration="1360000" />
+      <workItem from="1682395916811" duration="21266000" />
+      <workItem from="1682464657316" duration="24000" />
+      <workItem from="1682464685595" duration="590000" />
+      <workItem from="1682666173423" duration="187000" />
+      <workItem from="1682666402521" duration="3730000" />
+      <workItem from="1682674808854" duration="29198000" />
+      <workItem from="1682814171594" duration="383000" />
+      <workItem from="1683156035689" duration="348000" />
+      <workItem from="1683783521539" duration="9235000" />
+      <workItem from="1683793840008" duration="20597000" />
+      <workItem from="1684051061095" duration="58546000" />
+      <workItem from="1684619193361" duration="31095000" />
+      <workItem from="1685167705005" duration="33490000" />
+      <workItem from="1685256026487" duration="6247000" />
+      <workItem from="1685392924559" duration="15222000" />
+      <workItem from="1685408544731" duration="1357000" />
+      <workItem from="1685431703204" duration="4891000" />
+      <workItem from="1685675423492" duration="24969000" />
+      <workItem from="1685706012217" duration="494000" />
+      <workItem from="1685706510687" duration="33143000" />
+      <workItem from="1685947851581" duration="54161000" />
+      <workItem from="1686179805607" duration="15275000" />
+      <workItem from="1686196489455" duration="696000" />
+      <workItem from="1686197192114" duration="14696000" />
+      <workItem from="1686214461057" duration="3955000" />
+      <workItem from="1686218430408" duration="17049000" />
+    </task>
+    <task id="LOCAL-00001" summary="final">
+      <created>1682750071456</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1682750071456</updated>
+    </task>
+    <task id="LOCAL-00002" summary="final">
+      <created>1682750086105</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1682750086105</updated>
+    </task>
+    <task id="LOCAL-00003" summary="final">
+      <created>1682750131278</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1682750131278</updated>
+    </task>
+    <task id="LOCAL-00004" summary="final">
+      <created>1682750365319</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1682750365319</updated>
+    </task>
+    <task id="LOCAL-00005" summary="final">
+      <created>1683156224449</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1683156224449</updated>
+    </task>
+    <task id="LOCAL-00006" summary="final">
+      <created>1683156290439</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1683156290439</updated>
+    </task>
+    <task id="LOCAL-00007" summary="final">
+      <created>1686197657493</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1686197657493</updated>
+    </task>
+    <task id="LOCAL-00008" summary="final">
+      <created>1686266469015</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1686266469015</updated>
+    </task>
+    <task id="LOCAL-00009" summary="final">
+      <created>1686266549005</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1686266549005</updated>
+    </task>
+    <task id="LOCAL-00010" summary="final">
+      <created>1686266608036</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1686266608036</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="final" />
+    <option name="LAST_COMMIT_MESSAGE" value="final" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/test/model/ModelTest.java</url>
+          <line>56</line>
+          <properties class="model.ModelTest">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="11" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/view/ordersview/OrderListSelectionView.java</url>
+          <line>103</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
