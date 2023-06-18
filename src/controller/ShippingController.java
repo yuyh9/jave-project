@@ -3,13 +3,9 @@ package controller;
 
 import java.util.List;
 import javax.swing.JOptionPane;
-import model.customer.CustomerManager;
-import model.order.Order;
-import model.order.OrderManager;
+import model.order.*;
 import model.product.ProductManager;
-import model.shipping.Shipping;
-import model.shipping.ShippingManager;
-import model.shipping.ShippingStatus;
+import model.shipping.*;
 import view.HomePageView;
 import view.shipping.OrderIdSelectionView;
 import view.shipping.ShippingView;
@@ -20,7 +16,6 @@ public class ShippingController {
   private final ShippingView shippingView;
   private final ShippingManager shippingManager;
   private final OrderManager orderManager;
-  private CustomerManager customerManager;
   private ProductManager productManager;
   private OrderIdSelectionView orderIdSelectionView;
 
@@ -28,9 +23,8 @@ public class ShippingController {
     this.homePageView = homePageView;
     this.shippingView = shippingView;
     this.productManager = new ProductManager();
-    this.orderManager = new OrderManager(this.productManager, this.customerManager);
-    this.customerManager = new CustomerManager(this.orderManager);
-    this.shippingManager = new ShippingManager(this.orderManager, this.customerManager);
+    this.orderManager = new OrderManager(this.productManager);
+    this.shippingManager = new ShippingManager();
     this.orderIdSelectionView = new OrderIdSelectionView(this.shippingView, this.orderManager,
         this.shippingManager);
 

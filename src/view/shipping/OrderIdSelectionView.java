@@ -3,21 +3,12 @@ package view.shipping;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.util.List;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import model.customer.CustomerManager;
-import model.order.Order;
-import model.order.OrderManager;
+import model.order.*;
 import model.product.ProductManager;
-import model.shipping.Shipping;
-import model.shipping.ShippingManager;
+import model.shipping.*;
 
 public class OrderIdSelectionView extends JFrame {
 
@@ -28,8 +19,6 @@ public class OrderIdSelectionView extends JFrame {
   private final ShippingView shippingView;
   private final OrderManager orderManager;
   private final ShippingManager shippingManager;
-  private final CustomerManager customerManager;
-  private final ProductManager productManager;
 
 
   public OrderIdSelectionView(ShippingView shippingView, OrderManager orderManager,
@@ -37,8 +26,6 @@ public class OrderIdSelectionView extends JFrame {
     this.shippingView = shippingView;
     this.orderManager = orderManager;
     this.shippingManager = shippingManager;
-    this.productManager = new ProductManager();
-    this.customerManager = new CustomerManager(this.orderManager);
     initializeUI();
   }
 

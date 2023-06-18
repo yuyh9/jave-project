@@ -19,6 +19,7 @@ public class ProductData {
 
   public List<Product> readProductData() {
     List<String> data = txtFileHandler.readDataFromFile("products.txt");
+    products.clear();
 
     for (String line : data) {
       String[] productData = line.split(",");

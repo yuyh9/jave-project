@@ -3,22 +3,17 @@ package model.shipping;
 import data.ShippingData;
 import java.util.ArrayList;
 import java.util.List;
-import model.customer.CustomerManager;
-import model.order.OrderManager;
 
 
 public class ShippingManager {
 
   private List<Shipping> shippings;
   private final ShippingData shippingData;
-  private final OrderManager orderManager;
-  private final CustomerManager customerManager;
 
-  public ShippingManager(OrderManager orderManager, CustomerManager customerManager) {
+
+  public ShippingManager() {
     this.shippings = new ArrayList<>();
     this.shippingData = new ShippingData();
-    this.orderManager = orderManager;
-    this.customerManager = customerManager;
   }
 
   public List<Shipping> getShipping() {

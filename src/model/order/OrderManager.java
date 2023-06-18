@@ -1,29 +1,23 @@
 package model.order;
 
 import data.OrderData;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import model.customer.CustomerManager;
 import model.product.Product;
 import model.product.ProductManager;
 
 
-public class OrderManager implements Serializable {
+public class OrderManager {
 
   private List<Order> orderList;
   private final OrderData orderData;
-  private final ProductManager productManager;
-  private final CustomerManager customerManager;
+  private ProductManager productManager;
 
 
-  public OrderManager(ProductManager productManager, CustomerManager customerManager) {
+  public OrderManager(ProductManager productManager) {
     this.orderList = new ArrayList<>();
     this.orderData = new OrderData();
-    this.productManager = productManager;
-    this.customerManager = customerManager;
-
-  }
+    this.productManager = productManager;  }
 
   public List<Order> getOrders() {
     return orderList;
@@ -39,16 +33,6 @@ public class OrderManager implements Serializable {
     }
     return null; // Order not found
   }
-
-  public List<OrderItem> getAllOrderItems() {
-    List<OrderItem> orderItems = new ArrayList<>();
-    for (Product product : productManager.getProducts()) {
-      OrderItem item = new OrderItem(product, 1);
-      orderItems.add(item);
-    }
-    return orderItems;
-  }
-
 
   public void createOrder(Order order) {
     // Create a new order and add it to the list
@@ -76,7 +60,28 @@ public class OrderManager implements Serializable {
     }
     return false; // Order not found
   }
+  public void adjustQuantityBasedOnStatus(Order order) {
+    OrderStatus status = order.getStatus();
 
+    if (status == OrderStatus.PENDING) {
+      // Decrease the quantity for the selected products
+      for (OrderItem item : order.getOrderItems()) {
+        Product product = item.getProduct();
+        int quantity = item.getQuantity();
+
+        productManager.decreaseProductQuantity(product, quantity);
+      }
+    } else if (status == OrderStatus.CANCELLED) {
+      // Add back the quantity for the selected products
+      for (OrderItem item : order.getOrderItems()) {
+        Product product = item.getProduct();
+        int quantity = item.getQuantity();
+        System.out.println("Increasing quantity for product: " + product.getProductName() + ", Quantity: " + quantity);
+
+        productManager.increaseProductQuantity(product, quantity);
+      }
+    }
+  }
 
   public void loadOrders() {
     orderList = orderData.readOrderData();

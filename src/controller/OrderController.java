@@ -1,16 +1,17 @@
 package controller;
 
-import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
-import model.customer.CustomerManager;
-import model.order.Order;
-import model.order.OrderManager;
-import model.order.OrderStatus;
-import model.product.ProductManager;
+import model.customer.*;
+import model.order.*;
+import model.product.*;
 import view.HomePageView;
 import view.ordersview.CustomerIdSelectionView;
 import view.ordersview.OrderListSelectionView;
 import view.ordersview.OrderView;
+import view.ordersview.ShowOrderDetails;
+import view.productsview.ProductView;
 
 
 public class OrderController {
@@ -21,19 +22,23 @@ public class OrderController {
   private OrderManager orderManager;
   private final CustomerManager customerManager;
   private OrderListSelectionView orderListSelectionView;
-  private final CustomerIdSelectionView customerIdSelectionView;
+  private CustomerIdSelectionView customerIdSelectionView;
+  private ShowOrderDetails showOrderDetails;
+  private final ProductView productView;
+
 
   public OrderController(HomePageView homePageView, OrderView orderView) {
     this.homePageView = homePageView;
     this.orderView = orderView;
     this.productManager = new ProductManager();
+    this.orderManager = new OrderManager(this.productManager);
     this.customerManager = new CustomerManager(this.orderManager);
-    this.orderManager = new OrderManager(this.productManager, this.customerManager);
     this.orderListSelectionView = new OrderListSelectionView(this.orderView, this.productManager);
     this.customerIdSelectionView = new CustomerIdSelectionView(this.orderView,
         this.customerManager);
+    this.showOrderDetails = new ShowOrderDetails();
+    this.productView = new ProductView();
     attachOrderButtonListeners();
-    //attachButtonListeners();
     orderView.setVisible(true);
     loadOrders();
     updateOrderData();
@@ -43,7 +48,7 @@ public class OrderController {
     orderView.getBackButton().addActionListener(e -> backHomePage());
     orderView.getCreateButton().addActionListener(e -> addOrder());
     orderView.getViewButton().addActionListener(e -> viewOrder());
-    orderView.getUpdateButton().addActionListener(e -> updateOrder());
+    orderView.getUpdateButton().addActionListener(e -> updateOrderStatus());
     orderView.getSelectButton().addActionListener(e -> orderListSelect());
     orderView.getCustomerIdButton().addActionListener(e -> customerIdSelect());
   }
@@ -54,8 +59,49 @@ public class OrderController {
   }
 
   private void addOrder() {
+    String orderId = orderView.getOrderIdField();
+    String customerId = orderView.getCustomerIdField();
+    String orderDateStr = orderView.getOrderDateField();
+    OrderStatus status = orderView.getOrderStatus();
+    String orderListString = orderView.getOrderList();
 
+    // Get Customer object from customer ID
+    Customer customer = customerManager.getCustomerById(customerId);
+
+    // Parse order items from the order list string
+    List<OrderItem> orderItems = parseOrderItems(orderListString);
+
+    Order newOrder = new Order(orderId, customer, orderDateStr, status, orderItems);
+
+    // Create the new Order in the system
+    orderManager.createOrder(newOrder);
+    orderManager.adjustQuantityBasedOnStatus(newOrder);
+    updateOrderData();
+    saveOrders();
+    orderView.clearFields();
   }
+
+  private List<OrderItem> parseOrderItems(String orderListString) {
+    List<OrderItem> orderItems = new ArrayList<>();
+    String[] orderItemStrings = orderListString.split(", ");
+
+    for (String orderItemString : orderItemStrings) {
+      String[] itemData = orderItemString.split(":");
+      String productName = itemData[0];
+      int quantity = Integer.parseInt(itemData[1]);
+
+      // Fetch the product by name
+      Product product = productManager.getProductByName(productName);
+
+      // Create OrderItem with the product and quantity
+      OrderItem orderItem = new OrderItem(product, quantity);
+      orderItems.add(orderItem);
+    }
+
+    return orderItems;
+  }
+
+
   private void viewOrder() {
     String orderId = JOptionPane.showInputDialog(orderView, "Enter the order ID:");
 
@@ -63,14 +109,13 @@ public class OrderController {
     Order order = orderManager.getOrderById(orderId);
 
     if (order != null) {
-      showOrderDetails(order);
+      ShowOrderDetails.showOrderDetails(order);
     } else {
       JOptionPane.showMessageDialog(orderView, "Order not found!");
     }
-
   }
 
-  private void updateOrder() {
+  private void updateOrderStatus() {
     String orderId = JOptionPane.showInputDialog(orderView,
         "Enter the order ID to update status:");
 
@@ -94,8 +139,18 @@ public class OrderController {
     boolean isUpdated = orderManager.updateOrderStatus(orderId, newStatus);
 
     if (isUpdated) {
-      JOptionPane.showMessageDialog(orderView, "Order status updated successfully!");
-      updateOrderData(); // To reflect the changes in the GUI
+      // Fetch the order by ID
+      Order order = orderManager.getOrderById(orderId);
+
+      // Check if the order exists
+      if (order != null) {
+        System.out.println("Adjusting quantity based on the new order status: " + newStatus);
+        orderManager.adjustQuantityBasedOnStatus(order);
+        saveOrders();
+        updateOrderData();
+      } else {
+        System.out.println("Order not found!");
+      }
     } else {
       JOptionPane.showMessageDialog(orderView, "Failed to update order status!");
     }
@@ -111,9 +166,6 @@ public class OrderController {
     customerIdSelectionView.setVisible(true);
   }
 
-  private void showOrderDetails(Order order) {
-
-  }
 
   public void loadOrders() {
     orderManager.loadOrders();
@@ -123,7 +175,8 @@ public class OrderController {
 
   public void saveOrders() {
     orderManager.saveOrders();
-
+    productManager.saveProducts();
+    customerManager.saveCustomers();
   }
 
   public void updateOrderData() {

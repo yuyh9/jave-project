@@ -7,7 +7,42 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e461501d-0eb0-460f-b564-6296d2818fdd" name="Changes" comment="final" />
+    <list default="true" id="e461501d-0eb0-460f-b564-6296d2818fdd" name="Changes" comment="final">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/controller/CustomersController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/controller/CustomersController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/controller/HomePageController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/controller/HomePageController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/controller/OrderController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/controller/ProductController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/controller/ProductController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/controller/ShippingController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/controller/ShippingController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/controller/SupplierController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/controller/SupplierController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/controller/WarehouseController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/controller/WarehouseController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/controller/c/CustomerC.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/data/OrderData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/data/OrderData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/data/ProductData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/data/ProductData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/data/ShippingData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/data/ShippingData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/model/order/Order.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/model/order/Order.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/model/order/OrderManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/model/order/OrderManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/model/product/ProductManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/model/product/ProductManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/model/shipping/ShippingManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/model/shipping/ShippingManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/view/ordersview/OrderView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/view/ordersview/OrderView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/view/productsview/ProductView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/view/productsview/ProductView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/view/shipping/OrderIdSelectionView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/view/shipping/OrderIdSelectionView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/final/view/shipping/ShippingView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/final/view/shipping/ShippingView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/CustomersController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/CustomersController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controller/ShippingController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ShippingController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/OrderData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/OrderData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/ProductData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/ProductData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/ShippingData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/ShippingData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/order/Order.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/order/Order.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/order/OrderManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/order/OrderManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/product/ProductManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/product/ProductManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/model/shipping/ShippingManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/shipping/ShippingManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/ordersview/OrderView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/ordersview/OrderView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/productsview/ProductView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/productsview/ProductView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/shipping/OrderIdSelectionView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/shipping/OrderIdSelectionView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/view/shipping/ShippingView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/view/shipping/ShippingView.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,8 +53,8 @@
       <list>
         <option value="JUnit4 Test Class" />
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -35,31 +70,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
-    "jdk.selected.JAVA_MODULE": "openjdk-19",
-    "last_opened_file_path": "/Users/yuhuiying/gitcs/project/final",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;openjdk-19&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/yuhuiying/gitcs/project/final&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="view" />
@@ -210,6 +245,11 @@
       <workItem from="1686197192114" duration="14696000" />
       <workItem from="1686214461057" duration="3955000" />
       <workItem from="1686218430408" duration="17049000" />
+      <workItem from="1686267154418" duration="285000" />
+      <workItem from="1687042711041" duration="5988000" />
+      <workItem from="1687048731887" duration="10144000" />
+      <workItem from="1687060056015" duration="2541000" />
+      <workItem from="1687062637018" duration="1049000" />
     </task>
     <task id="LOCAL-00001" summary="final">
       <created>1682750071456</created>
@@ -318,11 +358,6 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="11" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/view/ordersview/OrderListSelectionView.java</url>
-          <line>103</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

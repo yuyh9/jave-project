@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import model.customer.Customer;
+import model.product.Product;
 
 public class Order {
 
@@ -60,8 +61,18 @@ public class Order {
     return orderItems;
   }
 
-  public void addOrderItem(OrderItem orderItem) {
-    this.orderItems.add(orderItem);
+
+  public double getTotalAmount() {
+    double totalAmount = 0.0;
+    for (OrderItem orderItem : orderItems) {
+      Product product = orderItem.getProduct();
+      int quantity = orderItem.getQuantity();
+      if (product != null) {
+        double price = product.getPrice();
+        totalAmount += price * quantity;
+      }
+    }
+    return totalAmount;
   }
 
   @Override

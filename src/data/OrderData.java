@@ -3,14 +3,9 @@ package data;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import model.customer.Customer;
-import model.customer.CustomerManager;
-import model.order.Order;
-import model.order.OrderItem;
-import model.order.OrderManager;
-import model.order.OrderStatus;
-import model.product.Product;
-import model.product.ProductManager;
+import model.customer.*;
+import model.order.*;
+import model.product.*;
 
 public class OrderData {
 
@@ -70,8 +65,11 @@ public class OrderData {
       orderLine.append(order.getStatus()).append(",");
 
       for (OrderItem orderItem : order.getOrderItems()) {
-        orderLine.append(orderItem.getProduct().getProductName()).append(":");
-        orderLine.append(orderItem.getQuantity()).append(",");
+        Product product = orderItem.getProduct();
+        if (product != null) {
+          orderLine.append(product.getProductName()).append(":");
+          orderLine.append(orderItem.getQuantity()).append(",");
+        }
       }
 
       orderLine.deleteCharAt(orderLine.length() - 1);

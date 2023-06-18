@@ -37,6 +37,21 @@ public class ProductManager {
   }
 
 
+  public void decreaseProductQuantity(Product product, int quantity) {
+    int currentQuantity = product.getQuantity();
+    if (currentQuantity < quantity) {
+      throw new IllegalArgumentException("Not enough product in stock");
+    }
+    product.setQuantity(currentQuantity - quantity);
+  }
+
+  public void increaseProductQuantity(Product product, int quantity) {
+    int currentQuantity = product.getQuantity();
+    System.out.println("Before increase - Product: " + product.getProductName() + ", Current Quantity: " + currentQuantity);
+    product.setQuantity(currentQuantity + quantity);
+    System.out.println("After increase - Product: " + product.getProductName() + ", New Quantity: " + product.getQuantity());
+  }
+
   public void removeProductById(String productId) {
     // Find the product with the given ID and remove it from the list
     for (Product product : products) {

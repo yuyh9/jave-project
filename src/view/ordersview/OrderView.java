@@ -6,35 +6,18 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import model.order.Order;
-import model.order.OrderItem;
-import model.order.OrderStatus;
+import model.order.*;
 import model.product.Product;
+
 
 public class OrderView extends JFrame {
 
   private final JPanel orderPanel;
   private final JTable orderTable;
-  private final JButton createButton;
-  private final JButton viewButton;
-  private final JButton updateButton;
-  private final JButton backButton;
-  private final JButton selectProductButton;
-  private final JButton customerIdButton;
-  private final JTextField orderIdField;
-  private final JTextField customerIdField;
-  private final JTextField orderDateField;
+  private final JButton createButton, viewButton, updateButton, backButton, selectProductButton, customerIdButton;
+  private final JTextField orderIdField, customerIdField, orderDateField;
   private final DefaultTableModel orderTableModel;
   private final JComboBox<OrderStatus> statusComboBox;
   private final List<OrderItem> orderItems = new ArrayList<>();
@@ -48,8 +31,7 @@ public class OrderView extends JFrame {
     setLocationRelativeTo(null);
 
     orderPanel = new JPanel(new BorderLayout());
-    String[] columnNames = {"Order ID", "Customer ID", "Order Date", "Status", "Order List",
-        "Total Amount"};
+    String[] columnNames = {"Order ID", "Customer ID", "Order Date", "Status", "Order List"};
     orderTableModel = new DefaultTableModel(columnNames, 0);
     orderTable = new JTable(orderTableModel);
     orderTable.setDefaultEditor(Object.class, null);
@@ -126,17 +108,12 @@ public class OrderView extends JFrame {
       rowData.add(formattedOrderDate);
       rowData.add(order.getStatus());
 
-      double totalAmount = 0.0;
       StringBuilder orderList = new StringBuilder();
-
       for (OrderItem orderItem : order.getOrderItems()) {
         Product product = orderItem.getProduct();
         if (product != null) {
           String productName = product.getProductName();
           int quantity = orderItem.getQuantity();
-          double price = product.getPrice();
-          double itemTotal = price * quantity;
-          totalAmount += itemTotal;
 
           String orderItemString = productName + ":" + quantity;
           orderList.append(orderItemString).append(", ");
@@ -148,8 +125,6 @@ public class OrderView extends JFrame {
       }
 
       rowData.add(orderList.toString());
-      rowData.add(String.format("%.2f", totalAmount)); // Format totalAmount with two decimal places
-
       orderTableModel.addRow(rowData.toArray());
     }
   }
@@ -196,12 +171,22 @@ public class OrderView extends JFrame {
     return (OrderStatus) statusComboBox.getSelectedItem();
   }
 
+  public String getOrderList() {
+    return orderListField.getText();
+  }
+
   public void setProductField(String product) {
     this.orderListField.setText(product);
   }
 
+
+
   public void addOrderItem(OrderItem orderItem) {
     orderItems.add(orderItem);
+  }
+
+  public void updateCustomerIdField(String customerId) {
+    customerIdField.setText(customerId);
   }
 
   public void updateProductField() {
@@ -225,10 +210,6 @@ public class OrderView extends JFrame {
     orderDateField.setText("");
     orderListField.setText("");
     statusComboBox.setSelectedIndex(0);
-  }
-
-  public void updateCustomerIdField(String customerId) {
-    customerIdField.setText(customerId);
   }
 }
 

@@ -24,7 +24,7 @@ public class CustomersController {
     this.homePageView = homePageView;
     this.customerView = customerView;
     this.productManager = new ProductManager();
-    this.orderManager = new OrderManager(this.productManager, this.customerManager);
+    this.orderManager = new OrderManager(this.productManager);
     this.customerManager = new CustomerManager(this.orderManager);
     this.customerTable = customerView.getCustomerTable();
     attachCustomerButtonListeners();
