@@ -47,6 +47,12 @@ public class SupplierController {
     String email = supplierView.getEmail();
     String phone = supplierView.getPhone();
 
+    // Check if either email or phone number is provided
+    if (email.isEmpty() && phone.isEmpty()) {
+      supplierView.displayMessage("Please provide either an email or a phone number.");
+      return; // Stop execution if both email and phone are empty
+    }
+
     Supplier existingSupplier = supplierManager.getSupplierById(id);
 
     if (existingSupplier != null && existingSupplier.isAvailable()) {

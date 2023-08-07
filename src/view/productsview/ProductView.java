@@ -12,22 +12,12 @@ public class ProductView extends JFrame {
 
   private final JPanel productPanel;
   private final JTable productTable;
-  private final JButton addButton;
-  private final JButton updateButton;
-  private final JButton deleteButton;
-  private final JButton backButton;
-  private final JButton searchButton;
+  private final JButton addButton, updateButton,activeButton, backButton,searchButton;
   private final DefaultTableModel productTableModel;
-  private final JTextField idField;
-  private final JTextField priceField;
-  private final JTextField nameField;
-  private final JTextField quantityField;
-  private final JTextField searchField;
+  private final JTextField idField, priceField, nameField, quantityField,searchField;
   private final JComboBox<ProductCategory> categoryComboBox;
-  private final JButton supplierSearchButton;
-  private final JButton warehouseSearchButton;
-  private final JTextField supplierField;
-  private final JTextField warehouseField;
+  private final JButton supplierSearchButton, warehouseSearchButton;
+  private final JTextField supplierField, warehouseField;
 
 
   public ProductView() {
@@ -39,7 +29,7 @@ public class ProductView extends JFrame {
 
     productPanel = new JPanel(new BorderLayout());
     String[] columnNames = {"Id", "Product Name", "Price", "Quantity", "Category", "Supplier ID",
-        "Warehouse ID"};
+        "Warehouse ID", "Active/Inactive"};
     productTableModel = new DefaultTableModel(columnNames, 0);
     // Create the productTable using the productTableModel
     productTable = new JTable(productTableModel);
@@ -75,12 +65,12 @@ public class ProductView extends JFrame {
 
     JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
     addButton = new JButton("Add");
-    deleteButton = new JButton("Remove");
+    activeButton = new JButton("Activate");
     updateButton = new JButton("Update");
     searchButton = new JButton("Search");
     backButton = new JButton("Back");
     buttonPanel.add(addButton);
-    buttonPanel.add(deleteButton);
+    buttonPanel.add(activeButton);
     buttonPanel.add(updateButton);
     buttonPanel.add(searchButton);
     buttonPanel.add(backButton);
@@ -125,7 +115,6 @@ public class ProductView extends JFrame {
     productTableModel.setRowCount(0);
 
     for (Product product : products) {
-      if (product.isAvailable()) {
         Object[] rowData = {
             product.getProductId(),
             product.getProductName(),
@@ -139,7 +128,6 @@ public class ProductView extends JFrame {
         productTableModel.addRow(rowData);
       }
     }
-  }
 
   public String getId() {
     // Retrieve the ID from the text field
@@ -174,12 +162,12 @@ public class ProductView extends JFrame {
     return addButton;
   }
 
-  public JButton getDeleteButton() {
-    return deleteButton;
-  }
-
   public JButton getUpdateButton() {
     return updateButton;
+  }
+
+  public JButton getActiveButton() {
+    return activeButton;
   }
 
   public JButton getBackButton() {
@@ -220,7 +208,6 @@ public class ProductView extends JFrame {
     return productTable;
   }
 
-
   public ProductCategory getCategory() {
     return (ProductCategory) categoryComboBox.getSelectedItem();
   }
@@ -230,10 +217,8 @@ public class ProductView extends JFrame {
     JOptionPane.showMessageDialog(this, s, "Message", JOptionPane.ERROR_MESSAGE);
   }
 
-
   public int displayConfirmDialog(String s) {
     // Display a confirmation dialog to the user and return the result
     return JOptionPane.showConfirmDialog(this, s, "Confirmation", JOptionPane.YES_NO_OPTION);
   }
-
 }

@@ -20,17 +20,9 @@ public class CustomerView extends JFrame {
 
   private final JPanel customerPanel;
   private final JTable customerTable;
-  private final JButton addButton;
-  private final JButton activeButton;
-  private final JButton updateButton;
-  private final JButton searchButton;
-  private final JButton backButton;
+  private final JButton addButton, activeButton, updateButton,searchButton, backButton;
   private final DefaultTableModel customerTableModel;
-  private final JTextField idField;
-  private final JTextField nameField;
-  private final JTextField contactField;
-  private final JTextField addressField;
-  private final JTextField searchField;
+  private final JTextField idField, nameField, contactField, addressField, searchField;
 
   public CustomerView() {
     setTitle("Customer Management");

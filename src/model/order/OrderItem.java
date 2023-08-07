@@ -28,6 +28,10 @@ public class OrderItem {
     this.quantity = quantity;
   }
 
+  public void updateQuantity(int quantity) {
+    product.setQuantity(quantity);
+  }
+
   @Override
   public String toString() {
     return "Item: " +

@@ -1,11 +1,13 @@
 package model.order;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import model.customer.Customer;
 import model.product.Product;
+import model.product.ProductManager;
 
 public class Order {
 
@@ -14,6 +16,7 @@ public class Order {
   private Date orderDate;
   private OrderStatus status;
   private final List<OrderItem> orderItems;
+  private Product product;
 
 
   public Order(String orderId, Customer customer, String orderDate, OrderStatus status,

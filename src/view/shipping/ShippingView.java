@@ -14,12 +14,8 @@ public class ShippingView extends JFrame {
   private final JTable shippingTable;
   private final DefaultTableModel shippingTableModel;
   private final JTextField idField;
-  private final JTextField orderIdField;
-  private final JTextField searchField;
-  private final JButton addButton;
-  private final JButton updateButton;
-  private final JButton searchButton;
-  private final JButton backButton;
+  private final JTextField orderIdField, searchField;
+  private final JButton addButton, updateButton, searchButton,backButton;
   private final JButton orderIdSearchButton;
   private final JComboBox<ShippingStatus> statusComboBox;
 

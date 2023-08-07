@@ -43,18 +43,10 @@ public class Warehouse {
     this.location = location;
   }
 
-
-  public List<Product> getWarehouseProducts() {
-    return products;
-  }
-
   public void addToInventory(Product product) {
     products.add(product);
   }
 
-  public void removeFromInventory(Product product) {
-    products.remove(product);
-  }
 
   public List<String> getProductNames() {
     List<String> productNames = new ArrayList<>();

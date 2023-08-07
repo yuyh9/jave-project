@@ -31,8 +31,8 @@ public class OrderController {
     this.homePageView = homePageView;
     this.orderView = orderView;
     this.productManager = new ProductManager();
-    this.orderManager = new OrderManager(this.productManager);
     this.customerManager = new CustomerManager(this.orderManager);
+    this.orderManager = new OrderManager(this.productManager, this.customerManager);
     this.orderListSelectionView = new OrderListSelectionView(this.orderView, this.productManager);
     this.customerIdSelectionView = new CustomerIdSelectionView(this.orderView,
         this.customerManager);
@@ -51,11 +51,17 @@ public class OrderController {
     orderView.getUpdateButton().addActionListener(e -> updateOrderStatus());
     orderView.getSelectButton().addActionListener(e -> orderListSelect());
     orderView.getCustomerIdButton().addActionListener(e -> customerIdSelect());
+    orderView.getClearButton().addActionListener(e -> clearOrderList());
+
   }
 
   private void backHomePage() {
     homePageView.setVisible(true);
     orderView.dispose();
+  }
+
+  private void clearOrderList() {
+    orderView.clearOrderListFields();
   }
 
   private void addOrder() {
@@ -75,7 +81,18 @@ public class OrderController {
 
     // Create the new Order in the system
     orderManager.createOrder(newOrder);
-    orderManager.adjustQuantityBasedOnStatus(newOrder);
+
+    // Only decrease quantity if the status is not 'CANCELLED'
+    if (status != OrderStatus.CANCELLED) {
+      // Decrease the quantity for the selected products
+      for (OrderItem item : newOrder.getOrderItems()) {
+        Product product = item.getProduct();
+        int quantity = item.getQuantity();
+
+        productManager.decreaseProductQuantity(product, quantity);
+      }
+    }
+
     updateOrderData();
     saveOrders();
     orderView.clearFields();
@@ -96,6 +113,7 @@ public class OrderController {
       // Create OrderItem with the product and quantity
       OrderItem orderItem = new OrderItem(product, quantity);
       orderItems.add(orderItem);
+      orderView.clearOrderListFields();
     }
 
     return orderItems;
@@ -119,6 +137,13 @@ public class OrderController {
     String orderId = JOptionPane.showInputDialog(orderView,
         "Enter the order ID to update status:");
 
+    Order order = orderManager.getOrderById(orderId);
+
+    if (order == null) {
+      JOptionPane.showMessageDialog(orderView, "Order not found!");
+      return;
+    }
+
     OrderStatus[] statuses = OrderStatus.values();
     String[] statusOptions = new String[statuses.length];
 
@@ -136,25 +161,46 @@ public class OrderController {
     );
 
     OrderStatus newStatus = OrderStatus.valueOf(newStatusInput);
+    if (order.getStatus() == OrderStatus.CANCELLED || order.getStatus() == OrderStatus.CONFIRMED) {
+      JOptionPane.showMessageDialog(orderView, "Order status update not allowed for current status.");
+      return;
+    }
+
     boolean isUpdated = orderManager.updateOrderStatus(orderId, newStatus);
 
     if (isUpdated) {
-      // Fetch the order by ID
-      Order order = orderManager.getOrderById(orderId);
+      if (newStatus == OrderStatus.CONFIRMED) {
+        // Decrease the quantity for the selected products
+        for (OrderItem item : order.getOrderItems()) {
+          Product product = item.getProduct();
+          int quantity = item.getQuantity();
 
-      // Check if the order exists
-      if (order != null) {
-        System.out.println("Adjusting quantity based on the new order status: " + newStatus);
-        orderManager.adjustQuantityBasedOnStatus(order);
-        saveOrders();
-        updateOrderData();
-      } else {
-        System.out.println("Order not found!");
+          System.out.println("Before decrease - Product: " + product.getProductName() + ", Order Quantity: " + quantity + ", Current Quantity: " + product.getQuantity());
+          productManager.decreaseProductQuantity(product, quantity);
+          item.updateQuantity(product.getQuantity());
+          System.out.println("After decrease - Product: " + product.getProductName() + ", New Quantity: " + product.getQuantity());
+          updateOrderData();
+          saveOrders();
+        }
       }
+
+      if (newStatus == OrderStatus.CANCELLED) {
+        // Decrease the quantity for the selected products
+        for (OrderItem item : order.getOrderItems()) {
+          Product product = item.getProduct();
+          int quantity = item.getQuantity();
+          productManager.increaseProductQuantity(product, quantity);
+        }
+      }
+      updateOrderData();
+      saveOrders();
+      productView.updateProducts(productManager.getProducts());
+
     } else {
       JOptionPane.showMessageDialog(orderView, "Failed to update order status!");
     }
   }
+
 
   private void orderListSelect() {
     orderListSelectionView = new OrderListSelectionView(orderView, this.productManager);
@@ -181,5 +227,7 @@ public class OrderController {
 
   public void updateOrderData() {
     orderView.updateOrders(orderManager.getOrders());
+    productView.updateProducts(productManager.getProducts());
   }
+
 }

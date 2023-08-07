@@ -83,19 +83,29 @@ public class OrderListSelectionView extends JFrame {
 
     selectButton.addActionListener(e -> {
       int selectedRow = productTable.getSelectedRow();
-      if (selectedRow != -1) {
-        String productId = (String) productTable.getValueAt(selectedRow, 0);
-        int quantity = Integer.parseInt(quantityField.getText());
-        // Fetch the selected product
-        Product selectedProduct = productManager.getProductById(productId);
-        // Create OrderItem with the product and quantity
-        OrderItem orderItem = new OrderItem(selectedProduct, quantity);
-        // Add OrderItem to the orderItems list in OrderView
-        orderView.addOrderItem(orderItem);
-        // Update the product field in OrderView
-        orderView.updateProductField();
+      String quantityText = quantityField.getText();
 
-        dispose();
+      if (selectedRow != -1) {
+        if (!quantityText.isEmpty()) {
+          String productId = (String) productTable.getValueAt(selectedRow, 0);
+          int quantity = Integer.parseInt(quantityText);
+          // Fetch the selected product
+          Product selectedProduct = productManager.getProductById(productId);
+          // Create OrderItem with the product and quantity
+          OrderItem orderItem = new OrderItem(selectedProduct, quantity);
+          // Add OrderItem to the orderItems list in OrderView
+          orderView.addOrderItem(orderItem);
+          // Update the product field in OrderView
+          orderView.updateProductField();
+          dispose();
+        } else {
+          JOptionPane.showMessageDialog(
+              OrderListSelectionView.this,
+              "Please enter the quantity for the selected product.",
+              "Quantity Missing",
+              JOptionPane.WARNING_MESSAGE
+          );
+        }
       } else {
         JOptionPane.showMessageDialog(
             OrderListSelectionView.this,
@@ -105,6 +115,7 @@ public class OrderListSelectionView extends JFrame {
         );
       }
     });
+
 
     // Add ActionListener to the cancelButton
     cancelButton.addActionListener(e -> dispose());
@@ -117,7 +128,7 @@ public class OrderListSelectionView extends JFrame {
 
   }
 
-  private void updateProductTable(List<Product> products) {
+  public void updateProductTable(List<Product> products) {
     // Clear existing data from the table
     productTableModel.setRowCount(0);
 
@@ -129,5 +140,4 @@ public class OrderListSelectionView extends JFrame {
       }
     }
   }
-
 }

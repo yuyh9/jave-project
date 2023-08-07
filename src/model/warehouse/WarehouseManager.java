@@ -44,7 +44,6 @@ public class WarehouseManager {
     return null; // Warehouse not found
   }
 
-
   public void updateWarehouse(Warehouse warehouse) {
     // Update the customer in the list
     for (int i = 0; i < this.warehouses.size(); i++) {

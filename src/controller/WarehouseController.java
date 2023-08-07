@@ -7,7 +7,8 @@ import model.product.ProductManager;
 import model.warehouse.Warehouse;
 import model.warehouse.WarehouseManager;
 import view.HomePageView;
-import view.WarehouseView;
+import view.warehouseview.DisplayWarehouseInfo;
+import view.warehouseview.WarehouseView;
 
 public class WarehouseController {
 
@@ -16,6 +17,7 @@ public class WarehouseController {
   private final WarehouseManager warehouseManager;
   private final ProductManager productManager;
   private final JTable warehouseTable;
+  private  DisplayWarehouseInfo warehouseInfo;
 
   public WarehouseController(HomePageView homePageView,
       WarehouseView warehouseView) {
@@ -23,6 +25,7 @@ public class WarehouseController {
     this.warehouseView = warehouseView;
     this.productManager = new ProductManager();
     this.warehouseManager = new WarehouseManager(this.productManager);
+    this.warehouseInfo = new DisplayWarehouseInfo(this.warehouseView, "");
     this.warehouseTable = warehouseView.getWarehouseTable();
 
     attachWarehouseButtonListeners();
@@ -36,6 +39,7 @@ public class WarehouseController {
     warehouseView.getAddButton().addActionListener(e -> addWarehouse());
     warehouseView.getRemoveButton().addActionListener(e -> removeWarehouse());
     warehouseView.getUpdateButton().addActionListener(e -> updateWarehouse());
+    warehouseView.getViewButton().addActionListener(e -> viewWarehouse());
     warehouseView.getSearchButton().addActionListener(e -> searchWarehouse());
   }
 
@@ -111,6 +115,29 @@ public class WarehouseController {
     warehouseView.clearTextField();
   }
 
+  private void viewWarehouse() {
+    String warehouseId = JOptionPane.showInputDialog(warehouseView, "Enter Warehouse ID:",
+        "View Warehouse", JOptionPane.QUESTION_MESSAGE);
+
+    if (warehouseId != null && !warehouseId.isEmpty()) {
+      int rowIndex = -1;
+      for (int i = 0; i < warehouseTable.getRowCount(); i++) {
+        String idInTable = (String) warehouseTable.getValueAt(i, 0);
+        if (idInTable.equals(warehouseId)) {
+          rowIndex = i;
+          break;
+        }
+      }
+
+      if (rowIndex != -1) {
+        String productsList = (String) warehouseTable.getValueAt(rowIndex, 3);
+        this.warehouseInfo = new DisplayWarehouseInfo(warehouseView, productsList);
+      } else {
+        warehouseView.displayMessage("Warehouse ID not found.");
+      }
+    }
+
+  }
   private void searchWarehouse() {
     // Retrieve the search query from the search field
     String searchText = warehouseView.getSearchQuery();

@@ -15,12 +15,13 @@ public class ShippingData {
   private final TxtFileHandler txtFileHandler;
   private final OrderManager orderManager;
   private final List<Shipping> shippings;
+  private final ProductManager productManager;
   private CustomerManager customerManager;
-  private ProductManager productManager;
 
   public ShippingData() {
     this.txtFileHandler = new TxtFileHandler();
-    this.orderManager = new OrderManager(this.productManager);
+    this.productManager = new ProductManager();
+    this.orderManager = new OrderManager(this.productManager, this.customerManager);
     this.customerManager = new CustomerManager(this.orderManager);
     this.shippings = new ArrayList<>();
     orderManager.loadOrders();

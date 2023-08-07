@@ -2,7 +2,11 @@ package controller;
 
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import model.customer.Customer;
+import model.customer.CustomerManager;
+import model.order.OrderManager;
 import model.product.Product;
 import model.product.ProductCategory;
 import model.product.ProductManager;
@@ -48,6 +52,7 @@ public class ProductController {
     productView.getBackButton().addActionListener(e -> backHomePage());
     productView.getAddButton().addActionListener(e -> addProduct());
     productView.getUpdateButton().addActionListener(e -> updateProduct());
+    productView.getActiveButton().addActionListener(e -> activeProduct());
     productView.getSearchButton().addActionListener(e -> searchProduct());
     productView.getSupplierSearchButton().addActionListener(e -> supplierIdSearch());
     productView.getWarehouseSearchButton().addActionListener(e -> warehouseIdSearch());
@@ -56,8 +61,8 @@ public class ProductController {
   private void backHomePage() {
     homePageView.setVisible(true);
     productView.dispose();
-
   }
+
   private void addProduct() {
     // Get the product details from the view
     String id = productView.getId();
@@ -178,6 +183,26 @@ public class ProductController {
     updateProductData();
     productView.clearTextField();
 
+  }
+
+  private void activeProduct() {
+    int selectedRowIndex = productTable.getSelectedRow();
+    if (selectedRowIndex != -1) {
+      String productId = (String) productTable.getValueAt(selectedRowIndex, 0);
+      int dialogResult = productView.displayConfirmDialog(
+          "Are you sure you want to Activate/Deactivate this product?");
+      if (dialogResult == JOptionPane.YES_OPTION) {
+        Product product = productManager.getProductById(productId);
+
+        if (product != null) {
+          productManager.activeProduct(product);
+          saveProducts();
+          updateProductData();
+        }
+      }
+    } else {
+      productView.displayErrorMessage("Please select a product to Activate or Deactivate.");
+    }
   }
 
 

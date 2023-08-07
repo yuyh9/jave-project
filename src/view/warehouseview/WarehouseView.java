@@ -1,4 +1,4 @@
-package view;
+package view.warehouseview;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
@@ -13,6 +13,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import model.order.Order;
 import model.warehouse.Warehouse;
 
 public class WarehouseView extends JFrame {
@@ -20,15 +21,8 @@ public class WarehouseView extends JFrame {
   private final JPanel warehousePanel;
   private final JTable warehouseTable;
   private final DefaultTableModel warehouseTableModel;
-  private final JTextField idField;
-  private final JTextField nameField;
-  private final JTextField locationField;
-  private final JTextField searchField;
-  private final JButton addButton;
-  private final JButton updateButton;
-  private final JButton removeButton;
-  private final JButton searchButton;
-  private final JButton backButton;
+  private final JTextField idField, nameField, locationField, searchField;
+  private final JButton addButton, updateButton, removeButton,searchButton, backButton, viewButton;
 
   public WarehouseView() {
     setTitle("Warehouse Management");
@@ -70,11 +64,13 @@ public class WarehouseView extends JFrame {
     addButton = new JButton("Add");
     removeButton = new JButton("Remove");
     updateButton = new JButton("Update");
+    viewButton = new JButton("View OrderList");
     searchButton = new JButton("Search");
     backButton = new JButton("Back");
     buttonPanel.add(addButton);
     buttonPanel.add(removeButton);
     buttonPanel.add(updateButton);
+    buttonPanel.add(viewButton);
     buttonPanel.add(searchButton);
     buttonPanel.add(backButton);
 
@@ -133,6 +129,10 @@ public class WarehouseView extends JFrame {
 
   public JButton getUpdateButton() {
     return updateButton;
+  }
+
+  public JButton getViewButton() {
+    return viewButton;
   }
 
   public JButton getSearchButton() {

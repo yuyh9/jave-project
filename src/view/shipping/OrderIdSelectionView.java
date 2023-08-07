@@ -100,6 +100,10 @@ public class OrderIdSelectionView extends JFrame {
     orderIdTableModel.setRowCount(0);
 
     for (Order order : orderIds) {
+      // Skip orders
+      if (order.getStatus() == OrderStatus.CANCELLED || order.getStatus() == OrderStatus.PENDING) {
+        continue;
+      }
       String orderId = order.getOrderId();
 
       // Check if the order ID is already associated with a shipping

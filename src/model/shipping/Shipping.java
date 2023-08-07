@@ -29,17 +29,6 @@ public class Shipping {
     return associatedOrder;
   }
 
-  public void setAssociatedOrder(Order associatedOrder) {
-    this.associatedOrder = associatedOrder;
-  }
-
-  public String getShippingAddress() {
-    return shippingAddress;
-  }
-
-  public void setShippingAddress(String shippingAddress) {
-    this.shippingAddress = shippingAddress;
-  }
 
   public ShippingStatus getShippingStatus() {
     return shippingStatus;
@@ -50,7 +39,11 @@ public class Shipping {
   }
 
   public String getCustomerName() {
-    return associatedOrder.getCustomer().getName();
+    if (associatedOrder != null && associatedOrder.getCustomer() != null) {
+      return associatedOrder.getCustomer().getName();
+    } else {
+      return null; // or handle the case when the associatedOrder or customer is null
+    }
   }
 
   public String getCustomerAddress() {

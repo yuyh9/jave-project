@@ -24,7 +24,7 @@ public class CustomersController {
     this.homePageView = homePageView;
     this.customerView = customerView;
     this.productManager = new ProductManager();
-    this.orderManager = new OrderManager(this.productManager);
+    this.orderManager = new OrderManager(this.productManager, this.customerManager);
     this.customerManager = new CustomerManager(this.orderManager);
     this.customerTable = customerView.getCustomerTable();
     attachCustomerButtonListeners();
@@ -53,6 +53,12 @@ public class CustomersController {
     String name = customerView.getCustomerName();
     String email = customerView.getContactInfo();
     String shippingAddress = customerView.getShippingAddress();
+
+    // Check if any of the fields are empty
+    if (idString.isEmpty() || name.isEmpty() || email.isEmpty() || shippingAddress.isEmpty()) {
+      customerView.displayMessage("Please fill in all fields.");
+      return; // Stop execution if any field is empty
+    }
 
     Customer existingCustomer = customerManager.getCustomerById(idString);
 
@@ -89,8 +95,6 @@ public class CustomersController {
     } else {
       customerView.displayMessage("Please select a customer to Activate or Deactivate.");
     }
-
-
   }
 
   private void updateCustomer() {
@@ -106,17 +110,17 @@ public class CustomersController {
     // Check if the customer ID exists
     Customer existingCustomer = customerManager.getCustomerById(idString);
     String newName = customerView.getCustomerName();
-    if (newName != null && !newName.isEmpty()) {
+    if (newName != null) {
       existingCustomer.setName(newName);
     }
 
     String newContactInfo = customerView.getContactInfo();
-    if (newContactInfo != null && !newContactInfo.isEmpty()) {
+    if (newContactInfo != null) {
       existingCustomer.setContactInfo(newContactInfo);
     }
 
     String newAddress = customerView.getShippingAddress();
-    if (newAddress != null && !newAddress.isEmpty()) {
+    if (newAddress != null) {
       existingCustomer.setShippingAddress(newAddress);
     }
     customerManager.updateCustomer(existingCustomer);

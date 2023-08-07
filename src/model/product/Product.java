@@ -1,5 +1,6 @@
 package model.product;
 
+import java.io.Serializable;
 import model.supplier.Supplier;
 import model.warehouse.Warehouse;
 
@@ -57,6 +58,7 @@ public class Product {
   }
 
   public int getQuantity() {
+
     return quantity;
   }
 

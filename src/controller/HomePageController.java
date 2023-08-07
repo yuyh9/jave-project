@@ -1,11 +1,11 @@
 package controller;
 
 
-import java.awt.event.ActionListener;
+import view.BusinessReportView;
 import view.CustomerView;
 import view.HomePageView;
 import view.SupplierView;
-import view.WarehouseView;
+import view.warehouseview.WarehouseView;
 import view.ordersview.OrderView;
 import view.productsview.ProductView;
 import view.shipping.ShippingView;
@@ -26,6 +26,7 @@ public class HomePageController {
     homePageView.getShippingManagementButton().addActionListener(e -> navigateToShippingManagementView());
     homePageView.getSupplierManagementButton().addActionListener(e -> navigateToSupplierManagementView());
     homePageView.getWarehouseManagementButton().addActionListener(e -> navigateToWarehouseManagementView());
+    homePageView.getBusinessReportButton().addActionListener(e -> navigateToBusinessReportView());
   }
 
   private void navigateToProductManagementView() {
@@ -86,5 +87,13 @@ public class HomePageController {
 
     homePageView.setVisible(false);
     warehouseView.setVisible(true);
+  }
+
+  private void navigateToBusinessReportView() {
+    BusinessReportView businessReportView = new BusinessReportView();
+    ReportController reportController = new ReportController(homePageView, businessReportView);
+
+    homePageView.setVisible(false);
+    businessReportView.setVisible(true);
   }
 }

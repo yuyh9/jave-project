@@ -16,7 +16,8 @@ public class OrderView extends JFrame {
 
   private final JPanel orderPanel;
   private final JTable orderTable;
-  private final JButton createButton, viewButton, updateButton, backButton, selectProductButton, customerIdButton;
+  private final JButton createButton, viewButton, updateButton, backButton, selectProductButton,
+      customerIdButton, clearButton;
   private final JTextField orderIdField, customerIdField, orderDateField;
   private final DefaultTableModel orderTableModel;
   private final JComboBox<OrderStatus> statusComboBox;
@@ -45,7 +46,7 @@ public class OrderView extends JFrame {
     customerIdField = new JTextField(10);
     orderDateField = new JTextField(10);
     orderListField = new JTextArea(5, 20);
-    //orderListField.setEditable(true);
+    orderListField.setEditable(true);
     orderListField.setLineWrap(true);
     JScrollPane orderListScrollPane = new JScrollPane(orderListField);
 
@@ -76,11 +77,13 @@ public class OrderView extends JFrame {
     viewButton = new JButton("view Order");
     updateButton = new JButton("Update Order Status");
     backButton = new JButton("Back");
+    clearButton = new JButton("Clear OrderList");
 
     buttonPanel.add(createButton);
     buttonPanel.add(viewButton);
     buttonPanel.add(updateButton);
     buttonPanel.add(backButton);
+    buttonPanel.add(clearButton);
 
     JPanel inputButtonPanel = new JPanel(new BorderLayout());
     inputButtonPanel.add(inputPanel, BorderLayout.NORTH);
@@ -155,6 +158,10 @@ public class OrderView extends JFrame {
     return customerIdButton;
   }
 
+  public JButton getClearButton() {
+    return clearButton;
+  }
+
   public String getOrderIdField() {
     return orderIdField.getText();
   }
@@ -178,8 +185,6 @@ public class OrderView extends JFrame {
   public void setProductField(String product) {
     this.orderListField.setText(product);
   }
-
-
 
   public void addOrderItem(OrderItem orderItem) {
     orderItems.add(orderItem);
@@ -211,6 +216,12 @@ public class OrderView extends JFrame {
     orderListField.setText("");
     statusComboBox.setSelectedIndex(0);
   }
+
+  public void clearOrderListFields() {
+    orderItems.clear();
+    orderListField.setText("");
+  }
+
 }
 
 

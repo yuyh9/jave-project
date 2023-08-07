@@ -20,16 +20,8 @@ public class SupplierView extends JFrame {
   private final JPanel supplierPanel;
   private final JTable supplierTable;
   private final DefaultTableModel supplierTableModel;
-  private final JTextField idField;
-  private final JTextField nameField;
-  private final JTextField emailField;
-  private final JTextField phoneField;
-  private final JTextField searchField;
-  private final JButton addButton;
-  private final JButton updateButton;
-  private final JButton activeButton;
-  private final JButton searchButton;
-  private final JButton backButton;
+  private final JTextField idField, nameField, emailField, phoneField, searchField;
+  private final JButton addButton, updateButton, activeButton, searchButton, backButton;
 
 
   public SupplierView() {

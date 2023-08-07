@@ -3,6 +3,8 @@ package model.product;
 import data.ProductData;
 import java.util.ArrayList;
 import java.util.List;
+import model.customer.Customer;
+import model.order.OrderManager;
 
 public class ProductManager {
 
@@ -10,13 +12,10 @@ public class ProductManager {
   private final ProductData productData;
 
 
-  private final int nextProductId;
-
 
   public ProductManager() {
     this.products = new ArrayList<>();
     this.productData = new ProductData();
-    this.nextProductId = 1;
   }
 
   public List<Product> getProducts() {
@@ -37,30 +36,21 @@ public class ProductManager {
   }
 
 
-  public void decreaseProductQuantity(Product product, int quantity) {
+  public  void decreaseProductQuantity(Product product, int quantity) {
     int currentQuantity = product.getQuantity();
     if (currentQuantity < quantity) {
       throw new IllegalArgumentException("Not enough product in stock");
     }
     product.setQuantity(currentQuantity - quantity);
+    updateProduct(product);
   }
 
   public void increaseProductQuantity(Product product, int quantity) {
     int currentQuantity = product.getQuantity();
-    System.out.println("Before increase - Product: " + product.getProductName() + ", Current Quantity: " + currentQuantity);
     product.setQuantity(currentQuantity + quantity);
-    System.out.println("After increase - Product: " + product.getProductName() + ", New Quantity: " + product.getQuantity());
+    updateProduct(product);
   }
 
-  public void removeProductById(String productId) {
-    // Find the product with the given ID and remove it from the list
-    for (Product product : products) {
-      if (product.getProductId().equals(productId)) {
-        products.remove(product);
-        break;
-      }
-    }
-  }
 
   public void updateProduct(Product product) {
     // Update the product in the list
@@ -72,6 +62,10 @@ public class ProductManager {
     }
   }
 
+  public void activeProduct(Product product) {
+    boolean currentAvailability = product.isAvailable();
+    product.setAvailable(!currentAvailability);
+  }
 
   public List<Product> searchProductsByName(String searchText) {
     List<Product> searchResults = new ArrayList<>();
@@ -121,6 +115,4 @@ public class ProductManager {
         "products=" + products +
         '}';
   }
-
-
 }
